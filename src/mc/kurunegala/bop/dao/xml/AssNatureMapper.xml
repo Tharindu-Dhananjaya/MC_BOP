@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mc.kurunegala.bop.dao.AssNatureMapper">
+  <resultMap id="BaseResultMap" type="mc.kurunegala.bop.model.AssNature">
+    <id column="idass_nature" jdbcType="INTEGER" property="idassNature" />
+    <result column="ass_nature_name" jdbcType="VARCHAR" property="assNatureName" />
+    <result column="ass_nature_year_rate" jdbcType="DOUBLE" property="assNatureYearRate" />
+    <result column="ass_nature_status" jdbcType="INTEGER" property="assNatureStatus" />
+    <result column="ass_nature_warrant_rate" jdbcType="DOUBLE" property="assNatureWarrantRate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    idass_nature, ass_nature_name, ass_nature_year_rate, ass_nature_status, ass_nature_warrant_rate
+  </sql>
+  <select id="selectByExample" parameterType="mc.kurunegala.bop.model.AssNatureExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ass_nature
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ass_nature
+    where idass_nature = #{idassNature,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ass_nature
+    where idass_nature = #{idassNature,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="mc.kurunegala.bop.model.AssNatureExample">
+    delete from ass_nature
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="mc.kurunegala.bop.model.AssNature">
+    insert into ass_nature (idass_nature, ass_nature_name, ass_nature_year_rate, 
+      ass_nature_status, ass_nature_warrant_rate)
+    values (#{idassNature,jdbcType=INTEGER}, #{assNatureName,jdbcType=VARCHAR}, #{assNatureYearRate,jdbcType=DOUBLE}, 
+      #{assNatureStatus,jdbcType=INTEGER}, #{assNatureWarrantRate,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="mc.kurunegala.bop.model.AssNature">
+    insert into ass_nature
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idassNature != null">
+        idass_nature,
+      </if>
+      <if test="assNatureName != null">
+        ass_nature_name,
+      </if>
+      <if test="assNatureYearRate != null">
+        ass_nature_year_rate,
+      </if>
+      <if test="assNatureStatus != null">
+        ass_nature_status,
+      </if>
+      <if test="assNatureWarrantRate != null">
+        ass_nature_warrant_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idassNature != null">
+        #{idassNature,jdbcType=INTEGER},
+      </if>
+      <if test="assNatureName != null">
+        #{assNatureName,jdbcType=VARCHAR},
+      </if>
+      <if test="assNatureYearRate != null">
+        #{assNatureYearRate,jdbcType=DOUBLE},
+      </if>
+      <if test="assNatureStatus != null">
+        #{assNatureStatus,jdbcType=INTEGER},
+      </if>
+      <if test="assNatureWarrantRate != null">
+        #{assNatureWarrantRate,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="mc.kurunegala.bop.model.AssNatureExample" resultType="java.lang.Long">
+    select count(*) from ass_nature
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ass_nature
+    <set>
+      <if test="record.idassNature != null">
+        idass_nature = #{record.idassNature,jdbcType=INTEGER},
+      </if>
+      <if test="record.assNatureName != null">
+        ass_nature_name = #{record.assNatureName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assNatureYearRate != null">
+        ass_nature_year_rate = #{record.assNatureYearRate,jdbcType=DOUBLE},
+      </if>
+      <if test="record.assNatureStatus != null">
+        ass_nature_status = #{record.assNatureStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.assNatureWarrantRate != null">
+        ass_nature_warrant_rate = #{record.assNatureWarrantRate,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ass_nature
+    set idass_nature = #{record.idassNature,jdbcType=INTEGER},
+      ass_nature_name = #{record.assNatureName,jdbcType=VARCHAR},
+      ass_nature_year_rate = #{record.assNatureYearRate,jdbcType=DOUBLE},
+      ass_nature_status = #{record.assNatureStatus,jdbcType=INTEGER},
+      ass_nature_warrant_rate = #{record.assNatureWarrantRate,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="mc.kurunegala.bop.model.AssNature">
+    update ass_nature
+    <set>
+      <if test="assNatureName != null">
+        ass_nature_name = #{assNatureName,jdbcType=VARCHAR},
+      </if>
+      <if test="assNatureYearRate != null">
+        ass_nature_year_rate = #{assNatureYearRate,jdbcType=DOUBLE},
+      </if>
+      <if test="assNatureStatus != null">
+        ass_nature_status = #{assNatureStatus,jdbcType=INTEGER},
+      </if>
+      <if test="assNatureWarrantRate != null">
+        ass_nature_warrant_rate = #{assNatureWarrantRate,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where idass_nature = #{idassNature,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mc.kurunegala.bop.model.AssNature">
+    update ass_nature
+    set ass_nature_name = #{assNatureName,jdbcType=VARCHAR},
+      ass_nature_year_rate = #{assNatureYearRate,jdbcType=DOUBLE},
+      ass_nature_status = #{assNatureStatus,jdbcType=INTEGER},
+      ass_nature_warrant_rate = #{assNatureWarrantRate,jdbcType=DOUBLE}
+    where idass_nature = #{idassNature,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+  	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+  	http://www.springframework.org/schema/aop 
+  	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+  	http://www.springframework.org/schema/context 
+  	http://www.springframework.org/schema/context/spring-context-4.3.xsd
+  	http://www.springframework.org/schema/tx 
+  	http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+  	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+	http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-4.3.xsd
+    http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+
+
+	<!-- <import resource="classpath:users-bean.xml" /> -->
+	<mybatis:scan base-package="mc.kurunegala.bop.dao" />
+	<context:component-scan base-package="mc.kurunegala.bop" />
+	<context:annotation-config />
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/content/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	
+	 <mvc:resources mapping="/resources/**" location="/resources/"
+		cache-period="31556926" /> 
+	
+	<mvc:annotation-driven />
+
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
+	<bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+
+	<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="dataSource" ref="DataSource" />
+	</bean>
+
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="mc.kurunegala.bop.dao"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+
+	<!-- Transaction -->
+	<tx:annotation-driven transaction-manager="txManager" />
+
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="DataSource" />
+	</bean>
+<!-- 	
+	Internationalization
+	<bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<property name="paramName" value="language" />
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="localeChangeInterceptor" />
+			</list>
+		</property>
+	</bean> -->
+
+
+
+	<!-- Apply transactions to all methods in our service layer. -->
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<!-- the transactional semantics... -->
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRES_NEW" />
+			<tx:method name="edit*" propagation="REQUIRES_NEW" />
+			<tx:method name="update*" propagation="REQUIRES_NEW" />
+			<tx:method name="add*" propagation="REQUIRES_NEW" />
+			<tx:method name="delete*" propagation="REQUIRES_NEW" />
+			<tx:method name="batchUpdate" propagation="REQUIRES_NEW" />
+			<tx:method name="scheduled*" propagation="REQUIRES_NEW" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="view*" read-only="true" />
+
+			<!-- all other methods are read-only -->
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="serviceMethods"
+			expression="execution(* mc.kurunegala.bop.service*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods" />
+	</aop:config>
+
+<!-- 	<mvc:interceptors>
+		<bean class="com.luna.distributionapp.util.AuthenticationChecker" />
+	</mvc:interceptors> -->
+
+	<!-- Spring multipartResolver. -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+</beans>

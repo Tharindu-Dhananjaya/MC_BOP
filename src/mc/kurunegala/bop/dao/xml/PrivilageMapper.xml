@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mc.kurunegala.bop.dao.PrivilageMapper">
+  <resultMap id="BaseResultMap" type="mc.kurunegala.bop.model.Privilage">
+    <id column="idPrivilage" jdbcType="INTEGER" property="idprivilage" />
+    <result column="view" jdbcType="VARCHAR" property="view" />
+    <result column="btn" jdbcType="VARCHAR" property="btn" />
+    <result column="arange" jdbcType="DOUBLE" property="arange" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    idPrivilage, view, btn, arange
+  </sql>
+  <select id="selectByExample" parameterType="mc.kurunegala.bop.model.PrivilageExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from privilage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from privilage
+    where idPrivilage = #{idprivilage,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from privilage
+    where idPrivilage = #{idprivilage,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="mc.kurunegala.bop.model.PrivilageExample">
+    delete from privilage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="mc.kurunegala.bop.model.Privilage">
+    insert into privilage (idPrivilage, view, btn, 
+      arange)
+    values (#{idprivilage,jdbcType=INTEGER}, #{view,jdbcType=VARCHAR}, #{btn,jdbcType=VARCHAR}, 
+      #{arange,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="mc.kurunegala.bop.model.Privilage">
+    insert into privilage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idprivilage != null">
+        idPrivilage,
+      </if>
+      <if test="view != null">
+        view,
+      </if>
+      <if test="btn != null">
+        btn,
+      </if>
+      <if test="arange != null">
+        arange,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idprivilage != null">
+        #{idprivilage,jdbcType=INTEGER},
+      </if>
+      <if test="view != null">
+        #{view,jdbcType=VARCHAR},
+      </if>
+      <if test="btn != null">
+        #{btn,jdbcType=VARCHAR},
+      </if>
+      <if test="arange != null">
+        #{arange,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="mc.kurunegala.bop.model.PrivilageExample" resultType="java.lang.Long">
+    select count(*) from privilage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update privilage
+    <set>
+      <if test="record.idprivilage != null">
+        idPrivilage = #{record.idprivilage,jdbcType=INTEGER},
+      </if>
+      <if test="record.view != null">
+        view = #{record.view,jdbcType=VARCHAR},
+      </if>
+      <if test="record.btn != null">
+        btn = #{record.btn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.arange != null">
+        arange = #{record.arange,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update privilage
+    set idPrivilage = #{record.idprivilage,jdbcType=INTEGER},
+      view = #{record.view,jdbcType=VARCHAR},
+      btn = #{record.btn,jdbcType=VARCHAR},
+      arange = #{record.arange,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="mc.kurunegala.bop.model.Privilage">
+    update privilage
+    <set>
+      <if test="view != null">
+        view = #{view,jdbcType=VARCHAR},
+      </if>
+      <if test="btn != null">
+        btn = #{btn,jdbcType=VARCHAR},
+      </if>
+      <if test="arange != null">
+        arange = #{arange,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where idPrivilage = #{idprivilage,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mc.kurunegala.bop.model.Privilage">
+    update privilage
+    set view = #{view,jdbcType=VARCHAR},
+      btn = #{btn,jdbcType=VARCHAR},
+      arange = #{arange,jdbcType=DOUBLE}
+    where idPrivilage = #{idprivilage,jdbcType=INTEGER}
+  </update>
+</mapper>
