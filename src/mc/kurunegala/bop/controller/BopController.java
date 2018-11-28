@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import mc.kurunegala.bop.model.ApplicationCatagory;
 import mc.kurunegala.bop.model.Assessment;
 import mc.kurunegala.bop.model.AssessmentSearcher;
+import mc.kurunegala.bop.model.BopHasAssessment;
 import mc.kurunegala.bop.model.Street;
 import mc.kurunegala.bop.model.Ward;
+import mc.kurunegala.bop.service.ApplicationCategoryService;
 import mc.kurunegala.bop.service.AssessmentService;
+import mc.kurunegala.bop.service.BopHasAssessmentService;
 import mc.kurunegala.bop.service.StreetService;
 import mc.kurunegala.bop.service.WardService;
 
@@ -29,11 +33,21 @@ public class BopController extends AbstractController {
 	WardService wardService;
 	@Autowired
 	StreetService streetService;
+	@Autowired
+	ApplicationCategoryService applicationCategoryService;
+	@Autowired
+	BopHasAssessmentService bopHasAssessmentService;
+	
+	
+	private String  appCategory;
 
 	@RequestMapping(value = "/bop-application", method = RequestMethod.GET)
 	public ModelAndView showApplication(HttpServletRequest request, HttpServletResponse response) {
+		
+		List<BopHasAssessment> bopHasAssessment=bopHasAssessmentService.viewAllByState(1);
+		
 		ModelAndView mv = new ModelAndView("bop/application");
-		// mv.addObject("user", new UserAccount());
+		mv.addObject("bopHasAssessment", bopHasAssessment);
 		return mv;
 	}
 
@@ -42,10 +56,12 @@ public class BopController extends AbstractController {
 		List<Assessment> assessments = assessmentService.viewAllActive(1);
 		List<Street> streets = streetService.viewAll();
 		List<Ward> wards = wardService.viewAll();
+		List<ApplicationCatagory> applicationCategories=applicationCategoryService.viewAllActive(1);
 		ModelAndView mv = new ModelAndView("bop/assessment-check");
 		mv.addObject("assessments", assessments);
 		mv.addObject("wards", wards);
 		mv.addObject("streets", streets);
+		mv.addObject("applicationCategories",applicationCategories);
 		mv.addObject("searcher", new AssessmentSearcher());
 		return mv;
 	}
@@ -99,6 +115,14 @@ public class BopController extends AbstractController {
 		mv.addObject("searcher", searcher);
 		return mv;
 
+	}
+
+	public String getAppCategory() {
+		return appCategory;
+	}
+
+	public void setAppCategory(String appCategory) {
+		this.appCategory = appCategory;
 	}
 
 }

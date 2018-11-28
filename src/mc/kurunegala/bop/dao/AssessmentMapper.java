@@ -33,4 +33,6 @@ public interface AssessmentMapper {
     List<Assessment> selectAllByState(@Param("state")int state);
 
 	List<Assessment> selectbySeracher(@Param("searcher")AssessmentSearcher searcher);
+	
+	Assessment selectByPrimaryKeyWithCustomer(Integer idassessment);
 }

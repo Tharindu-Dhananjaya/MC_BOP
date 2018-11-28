@@ -101,20 +101,19 @@
 		</div>
 	</div>
 	<div class="row mt-5">
-		<div class="col-md-3">
-
-			<form>
+		<form:form action="assessment-search.html" method="POST"
+			modelAttribute="searcher">
+			<div class="col-md-3">
 
 				<div class="form-group">
-					<select id="inputState" class="form-control">
-						<option selected>Choose...</option>
-						<option>...</option>
-					</select>
+					<form:select path="ward" cssClass="form-control">
+						<form:option value="-1">-Select-</form:option>
+						<form:options items="${applicationCategories}"
+							itemValue="idapplicationCatagory" itemLabel="applicationName" />
+					</form:select>
 				</div>
-				<button type="submit" class="btn btn-primary">Sign in</button>
-			</form>
-
-		</div>
+			</div>
+		</form:form>
 		<div class="col-md-9">
 			<table class="table">
 				<thead class="thead-light">

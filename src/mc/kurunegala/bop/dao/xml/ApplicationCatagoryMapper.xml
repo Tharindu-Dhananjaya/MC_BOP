@@ -195,4 +195,9 @@
       Application_Catagory_syn = #{applicationCatagorySyn,jdbcType=INTEGER}
     where idApplication_Catagory = #{idapplicationCatagory,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectAllByState" resultMap="BaseResultMap">
+  select * from application_catagory where Application_Catagory_status=#{state}
+  </select>
+  
 </mapper>

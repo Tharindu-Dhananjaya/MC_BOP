@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-	<classPathEntry location="D:\Git\ValueYOU\lib\mysql-connector-java-5.1.30.jar" />
+	<classPathEntry location="E:\Projects\Valueyou\lib\mysql-connector-java-5.1.30.jar" />
 	<context id="ctx" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
@@ -22,7 +22,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table tableName="Assessment" domainObjectName="Assessment" />
+<!-- 		<table tableName="Assessment" domainObjectName="Assessment" />
 		<table tableName="Customer" domainObjectName="Customer" />
 		<table tableName="Ward" domainObjectName="Ward" />
 		<table tableName="Street" domainObjectName="Street" />
@@ -39,9 +39,9 @@
 		<table tableName="BOP" domainObjectName="BOP" />
 		<table tableName="Uploads" domainObjectName="Uploads" />
 		<table tableName="Application_Catagory" domainObjectName="ApplicationCatagory" />
-		<table tableName="NeedDoc" domainObjectName="NeedDoc" />
-<!-- 		<table tableName="" domainObjectName="" />
- -->		
+		<table tableName="NeedDoc" domainObjectName="NeedDoc" /> -->
+		<table tableName="bop_has_assessment" domainObjectName="BopHasAssessment" />
+		
 		
 
 	</context>

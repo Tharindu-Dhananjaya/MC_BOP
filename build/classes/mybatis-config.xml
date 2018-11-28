@@ -4,10 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<mappers>
-		<mapper resource="mc/kurunegala/bop/dao/xml/AssessmentMapper.xml" />
+		<mapper
+			resource="mc/kurunegala/bop/dao/xml/AssessmentMapper.xml" />
 		<mapper resource="mc/kurunegala/bop/dao/xml/CustomerMapper.xml" />
 		<mapper resource="mc/kurunegala/bop/dao/xml/WardMapper.xml" />
 		<mapper resource="mc/kurunegala/bop/dao/xml/StreetMapper.xml" />
+		<mapper
+			resource="mc/kurunegala/bop/dao/xml/ApplicationCatagoryMapper.xml" />
+		<mapper resource="mc/kurunegala/bop/dao/xml/BOPMapper.xml" />
+		<mapper
+			resource="mc/kurunegala/bop/dao/xml/BopHasAssessmentMapper.xml" />
+
+
+
 
 
 	</mappers>

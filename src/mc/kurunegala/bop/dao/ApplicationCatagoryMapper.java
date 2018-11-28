@@ -27,4 +27,6 @@ public interface ApplicationCatagoryMapper {
     int updateByPrimaryKeySelective(ApplicationCatagory record);
 
     int updateByPrimaryKey(ApplicationCatagory record);
+
+	List<ApplicationCatagory> selectAllByState(int state);
 }
