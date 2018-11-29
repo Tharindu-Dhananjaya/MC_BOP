@@ -25,4 +25,8 @@ public class AssessmentService {
 		return mapper.selectbySeracher(searcher);
 	}
 
+	public Assessment get(int id) {
+		return mapper.selectByPrimaryKeyWithCustomer(id);
+	}
+
 }

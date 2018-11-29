@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import mc.kurunegala.bop.model.AssessmentWrapper;
 import mc.kurunegala.bop.model.User;
 
 
@@ -33,6 +34,13 @@ public class AbstractController  {
 
 	public void addSessionUser(User user, HttpSession session) {
 		session.setAttribute("User", user);
+	}
+	
+	public void addSessionAssessmentWrapper(AssessmentWrapper wrapper,HttpSession session) {
+		session.setAttribute("AssWrapper", wrapper);
+	}
+	public AssessmentWrapper getSessionAssessment(HttpSession session) {
+		return (AssessmentWrapper) session.getAttribute("AssWrapper");
 	}
 
 	public void removeSessionUser(HttpSession session) {

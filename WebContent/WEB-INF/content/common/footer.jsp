@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
-<script type='text/javascript'>
-	if (typeof jQuery == 'undefined') {
+<script type='text/javascript' src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>">
+	/* if (typeof jQuery == 'undefined') {
 		document
 				.write("<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'><\/script>");
-	}
+	} */
 </script>
 
-<script
+<!-- <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
 	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
 	crossorigin="anonymous"></script>
@@ -123,7 +123,7 @@
 </body>
 </html>
 
-<!-- <script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript"
 		src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <div class="container">

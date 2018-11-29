@@ -17,10 +17,25 @@
 					<th scope="col">Assessment No</th>
 					<th scope="col">Customer Name</th>
 					<th scope="col">NIC</th>
+					<th scope="col">Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${bopHasAssessment}" var="data">
+
+				<c:forEach items="${AssWrapper.assessments}" var="data"
+					varStatus="loop">
+					<tr>
+						<th scope="row">${loop.index+1}</th>
+						<td>${data.assessmentNo}</td>
+						<td>${data.customer.cusName }</td>
+						<td>${data.customer.cusNic }</td>
+						<td><a
+							onclick="populateSelectedApplicationData(${assessment.idassessment});">select</a></td>
+
+					</tr>
+				</c:forEach>
+
+				<%-- <c:forEach items="${bopHasAssessment}" var="data">
 					<tr>
 						<th scope="row">1</th>
 						<td>${data.assessment.idassessment}</td>
@@ -28,96 +43,16 @@
 						<td>${data.assessment.customer.cusNic }</td>
 
 					</tr>
-				</c:forEach>
+				</c:forEach> --%>
 			</tbody>
 		</table>
 	</div>
-	<div class="row">
-		<div class="col-md-10">
 
-			<div class="row">
+<div id="applicationMainForm">
 
-				<div class="col-md-6">
-
-
-					<div class="form-group">
-						<select id="inputState" class="form-control">
-							<option selected>Choose...</option>
-							<option>...</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<select id="inputState" class="form-control">
-							<option selected>Choose...</option>
-							<option>...</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" id="inputAddress"
-							placeholder="1234 Main St">
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" id="inputAddress2"
-							placeholder="Apartment, studio, or floor">
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" id="inputAddress2"
-							placeholder="Apartment, studio, or floor">
-					</div>
-
-
-				</div>
-
-				<div class="col-md-6">
-					<div class="form-group">
-						<input type="text" class="form-control" id="inputAddress"
-							placeholder="1234 Main St">
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" id="inputAddress2"
-							placeholder="Apartment, studio, or floor">
-					</div>
-					<div class="form-group">
-						<input type="text" class="form-control" id="inputAddress2"
-							placeholder="Apartment, studio, or floor">
-					</div>
-				</div>
-
-				<button type="submit" class="btn btn-primary">Sign in</button>
-
-
-			</div>
-
-		</div>
-		<div class="col-md-2">
-			<table class="table">
-				<thead class="thead-light">
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">First Name</th>
-
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">1</th>
-						<td>Mark</td>
-
-					</tr>
-					<tr>
-						<th scope="row">2</th>
-						<td>Jacob</td>
-
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td>Larry</td>
-
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<%@ include file="/WEB-INF/content/bop/application-main-form.jsp"%>
 	</div>
+
 	<div class="row">
 		<div class="col-md-4">
 
@@ -175,3 +110,20 @@
 
 	</div>
 </div>
+<%@ include file="/WEB-INF/content/common/footer.jsp"%>
+
+<script>
+function populateSelectedApplicationData(id) {
+	$("#applicationMainForm").html("");
+	$.ajax({
+		url : 'application-main',
+		data : {
+			"tempId" : id
+		},
+		success : function(result) {
+			$("#selectedAssessmentContent").html(result);
+		}
+	});
+}
+</script>
+

@@ -1,5 +1,6 @@
 package mc.kurunegala.bop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import mc.kurunegala.bop.model.ApplicationCatagory;
 import mc.kurunegala.bop.model.Assessment;
 import mc.kurunegala.bop.model.AssessmentSearcher;
+import mc.kurunegala.bop.model.AssessmentWrapper;
 import mc.kurunegala.bop.model.BopHasAssessment;
 import mc.kurunegala.bop.model.Street;
 import mc.kurunegala.bop.model.Ward;
@@ -37,15 +40,14 @@ public class BopController extends AbstractController {
 	ApplicationCategoryService applicationCategoryService;
 	@Autowired
 	BopHasAssessmentService bopHasAssessmentService;
-	
-	
-	private String  appCategory;
+
+	private String appCategory;
 
 	@RequestMapping(value = "/bop-application", method = RequestMethod.GET)
 	public ModelAndView showApplication(HttpServletRequest request, HttpServletResponse response) {
-		
-		List<BopHasAssessment> bopHasAssessment=bopHasAssessmentService.viewAllByState(1);
-		
+
+		List<BopHasAssessment> bopHasAssessment = bopHasAssessmentService.viewAllByState(1);
+
 		ModelAndView mv = new ModelAndView("bop/application");
 		mv.addObject("bopHasAssessment", bopHasAssessment);
 		return mv;
@@ -56,12 +58,12 @@ public class BopController extends AbstractController {
 		List<Assessment> assessments = assessmentService.viewAllActive(1);
 		List<Street> streets = streetService.viewAll();
 		List<Ward> wards = wardService.viewAll();
-		List<ApplicationCatagory> applicationCategories=applicationCategoryService.viewAllActive(1);
+		List<ApplicationCatagory> applicationCategories = applicationCategoryService.viewAllActive(1);
 		ModelAndView mv = new ModelAndView("bop/assessment-check");
 		mv.addObject("assessments", assessments);
 		mv.addObject("wards", wards);
 		mv.addObject("streets", streets);
-		mv.addObject("applicationCategories",applicationCategories);
+		mv.addObject("applicationCategories", applicationCategories);
 		mv.addObject("searcher", new AssessmentSearcher());
 		return mv;
 	}
@@ -115,6 +117,50 @@ public class BopController extends AbstractController {
 		mv.addObject("searcher", searcher);
 		return mv;
 
+	}
+
+	@RequestMapping(value = "/select-assessment", method = RequestMethod.GET)
+	public ModelAndView showSelectedAssessment(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("tempId") int assessmentId) {
+		ModelAndView mv = new ModelAndView("bop/selected-assessment-table");
+		List<Assessment> assessments = null;
+		Assessment assessment = assessmentService.get(assessmentId);
+		AssessmentWrapper wrapper = getSessionAssessment(request.getSession());
+		if (wrapper == null) {
+			wrapper = new AssessmentWrapper();
+			assessments = new ArrayList<>();
+			assessments.add(assessment);
+			wrapper.setAssessments(assessments);
+			addSessionAssessmentWrapper(wrapper, request.getSession());
+		} else {
+			if (!wrapper.getAssessments().contains(assessment)) {
+				wrapper.getAssessments().add(assessment);
+			}
+
+		}
+		return mv;
+	}
+
+	@RequestMapping(value = "/select-assessment-remove", method = RequestMethod.GET)
+	public ModelAndView removeSelectedAssessment(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("tempId") int assessmentId) {
+		ModelAndView mv = new ModelAndView("bop/selected-assessment-table");
+		Assessment assessment = assessmentService.get(assessmentId);
+		AssessmentWrapper wrapper = getSessionAssessment(request.getSession());
+		if (wrapper.getAssessments().contains(assessment)) {
+			wrapper.getAssessments().remove(assessment);
+			addSessionAssessmentWrapper(wrapper, request.getSession());
+		}
+		return mv;
+	}
+
+	@RequestMapping(value = "/application-main", method = RequestMethod.GET)
+	public ModelAndView showApplicationmainFormt(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("tempId") int assessmentId) {
+		ModelAndView mv = new ModelAndView("bop/application-main-form");
+		Assessment assessment = assessmentService.get(assessmentId);
+		
+		return mv;
 	}
 
 	public String getAppCategory() {
