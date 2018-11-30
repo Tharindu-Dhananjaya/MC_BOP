@@ -18,12 +18,17 @@ import mc.kurunegala.bop.model.ApplicationCatagory;
 import mc.kurunegala.bop.model.Assessment;
 import mc.kurunegala.bop.model.AssessmentSearcher;
 import mc.kurunegala.bop.model.AssessmentWrapper;
+import mc.kurunegala.bop.model.BOP;
+import mc.kurunegala.bop.model.BOPWithBLOBs;
 import mc.kurunegala.bop.model.BopHasAssessment;
+import mc.kurunegala.bop.model.Customer;
 import mc.kurunegala.bop.model.Street;
 import mc.kurunegala.bop.model.Ward;
 import mc.kurunegala.bop.service.ApplicationCategoryService;
 import mc.kurunegala.bop.service.AssessmentService;
 import mc.kurunegala.bop.service.BopHasAssessmentService;
+import mc.kurunegala.bop.service.BopService;
+import mc.kurunegala.bop.service.CustomerService;
 import mc.kurunegala.bop.service.StreetService;
 import mc.kurunegala.bop.service.WardService;
 
@@ -40,6 +45,10 @@ public class BopController extends AbstractController {
 	ApplicationCategoryService applicationCategoryService;
 	@Autowired
 	BopHasAssessmentService bopHasAssessmentService;
+	@Autowired
+	CustomerService customerService;
+	@Autowired
+	BopService bopservice;
 
 	private String appCategory;
 
@@ -50,6 +59,7 @@ public class BopController extends AbstractController {
 
 		ModelAndView mv = new ModelAndView("bop/application");
 		mv.addObject("bopHasAssessment", bopHasAssessment);
+		mv.addObject("assessment", new Assessment());
 		return mv;
 	}
 
@@ -154,12 +164,45 @@ public class BopController extends AbstractController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/application-main", method = RequestMethod.GET)
+	@RequestMapping(value = "/customer-data", method = RequestMethod.GET)
 	public ModelAndView showApplicationmainFormt(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("tempId") int assessmentId) {
 		ModelAndView mv = new ModelAndView("bop/application-main-form");
 		Assessment assessment = assessmentService.get(assessmentId);
+		mv.addObject("assessment", assessment);
+		return mv;
+	}
+
+	@RequestMapping(value = "/bop", method = RequestMethod.POST)
+	public ModelAndView processBop(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute Assessment assessment) {
+		Customer customer = assessment.getCustomer();
+		if (customer.getIdcustomer() != null) {
+			customerService.update(customer);
+		} else {
+			customer.setIdcustomer(generatePrimaryKey());
+			customer.setCusStatus(1);
+			customerService.add(customer);
+
+			Assessment ass = assessmentService.get(assessment.getIdassessment());
+			ass.setCustomerIdcustomer(customer.getIdcustomer());
+			assessmentService.update(ass);
+		}
+		BOPWithBLOBs bop=new BOPWithBLOBs();
+		bop.setIdbop(generatePrimaryKey());
+		bop.setCustomerIdcustomer(customer.getIdcustomer());
+		bopservice.add(bop);
 		
+		BopHasAssessment bopAss=new BopHasAssessment();
+		bopAss.setIdbopHasAssessmentcol(generatePrimaryKey());
+		bopAss.setBopIdbop(bop.getIdbop());
+		bopAss.setAssessmentIdassessment(assessment.getIdassessment());
+		bopAss.setBopHasAssessmentStatus(1);
+		bopHasAssessmentService.add(bopAss);
+		
+		//customer has application to be continued
+
+		ModelAndView mv = new ModelAndView("redirect:bop-application");
 		return mv;
 	}
 

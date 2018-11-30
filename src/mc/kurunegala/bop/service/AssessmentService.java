@@ -29,4 +29,8 @@ public class AssessmentService {
 		return mapper.selectByPrimaryKeyWithCustomer(id);
 	}
 
+	public void update(Assessment assessment) {
+		mapper.updateByPrimaryKeySelective(assessment);
+	}
+
 }

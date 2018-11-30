@@ -14,6 +14,10 @@ public class BopHasAssessmentService {
 	@Autowired
 	BopHasAssessmentMapper mapper;
 	
+	public void add(BopHasAssessment assessment) {
+		mapper.insertSelective(assessment);
+	}
+	
 	public List<BopHasAssessment> viewAllByState(int state){
 		return mapper.selectByState(state);
 	}

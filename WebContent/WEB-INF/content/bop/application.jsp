@@ -30,7 +30,7 @@
 						<td>${data.customer.cusName }</td>
 						<td>${data.customer.cusNic }</td>
 						<td><a
-							onclick="populateSelectedApplicationData(${assessment.idassessment});">select</a></td>
+							onclick="populateSelectedApplicationData(${data.idassessment});">select</a></td>
 
 					</tr>
 				</c:forEach>
@@ -48,7 +48,7 @@
 		</table>
 	</div>
 
-<div id="applicationMainForm">
+	<div id="applicationMainForm">
 
 		<%@ include file="/WEB-INF/content/bop/application-main-form.jsp"%>
 	</div>
@@ -57,51 +57,28 @@
 		<div class="col-md-4">
 
 			<form>
-
-				<div class="form-group">
-					<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-
+				<div class="form-group">Area 1
 					<input type="text" class="form-control" id="inputAddress"
-						placeholder="1234 Main St">
-				</div>
-				<div class="form-group">
-					<label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-
-					<input type="text" class="form-control" id="inputAddress"
-						placeholder="1234 Main St">
-				</div>
-				<button type="submit" class="btn btn-primary">Sign in</button>
-
-				<label class="custom-control custom-radio"> <input
-					id="radio1" name="radio" type="radio" class="custom-control-input">
-					<span class="custom-control-indicator"></span> <span
-					class="custom-control-description">Toggle this custom radio</span>
-				</label> <label class="custom-control custom-radio"> <input
-					id="radio2" name="radio" type="radio" class="custom-control-input">
-					<span class="custom-control-indicator"></span> <span
-					class="custom-control-description">Or toggle this other
-						custom radio</span>
-				</label>
-				<div class="form-group">
-
-					<input type="text" class="form-control" id="inputAddress"
-						placeholder="1234 Main St">
+						placeholder="Area 1">
 				</div>
 			</form>
 
 		</div>
 		<div class="col-md-8">
-			<div class="form-group">
+			<form>
+				<div class="form-group">
 
-				<input type="file" class="form-control" id="inputAddress"
-					placeholder="1234 Main St">
-			</div>
-			<div class="form-group">
+					<img class="profile-pic" src="image.png" class="rounded-circle "
+						id="pimg" width="70px" height="70px"> <i
+						class="fa fa-camera upload-button"></i> <input type='file'
+						class="file-upload" />
+					<%-- <form:input cssClass="file-upload" type="file" accept="image/*"
+					path="fileData" /> --%>
+					<%-- src="data:image/png;base64,${userWrapper.user.image}" --%>
 
-				<input type="text" class="form-control" id="inputAddress"
-					placeholder="1234 Main St">
-			</div>
-			</table>
+				</div>
+				<button type="submit" class="btn btn-success">Upload</button>
+			</form>
 		</div>
 	</div>
 
@@ -113,17 +90,45 @@
 <%@ include file="/WEB-INF/content/common/footer.jsp"%>
 
 <script>
+
 function populateSelectedApplicationData(id) {
 	$("#applicationMainForm").html("");
 	$.ajax({
-		url : 'application-main',
+		url : 'customer-data',
 		data : {
 			"tempId" : id
 		},
 		success : function(result) {
-			$("#selectedAssessmentContent").html(result);
+			$("#applicationMainForm").html(result);
+		},error: function(){
+			alert('error');
 		}
 	});
 }
 </script>
+
+<script>
+			$(document).ready(function() {
+
+				var readURL = function(input) {
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+
+						reader.onload = function(e) {
+							$('.profile-pic').attr('src', e.target.result);
+						}
+
+						reader.readAsDataURL(input.files[0]);
+					}
+				}
+
+				$(".file-upload").on('change', function() {
+					readURL(this);
+				});
+
+				$(".upload-button").on('click', function() {
+					$(".file-upload").click();
+				});
+			});
+		</script>
 

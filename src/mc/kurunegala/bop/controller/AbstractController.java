@@ -28,8 +28,8 @@ public class AbstractController  {
 
 	private Random random = new Random(1000);
 
-	public String generatePrimaryKey() {
-		return String.valueOf(Calendar.getInstance().getTimeInMillis() + random.nextInt());
+	public int generatePrimaryKey() {
+		return (int) (Calendar.getInstance().getTimeInMillis() + random.nextInt());
 	}
 
 	public void addSessionUser(User user, HttpSession session) {

@@ -8,58 +8,63 @@
 <div class="row">
 	<div class="col-md-10">
 
+
+
+
 		<div class="row">
 
 			<div class="col-md-6">
+				<form:form modelAttribute="assessment" action="bop.html"
+					method="POST">
+					<div class="form-group">
+						<form:input path="idassessment" type="hidden" />
+						<form:input path="customer.idcustomer" type="hidden" />
+						<form:input path="customer.cusNic" type="text"
+							cssClass="form-control" id="custNic" placeholder="NIC" />
+						<form:errors path="customer.cusNic" cssClass="error" />
+					</div>
+					<div class="form-group">
+						<form:input path="customer.cusName" type="text"
+							cssClass="form-control" id="custName" placeholder="Customer Name" />
+						<form:errors path="customer.cusName" cssClass="error" />
+					</div>
+					<div class="form-group">
+						<form:input path="customer.cusAddressL1" type="text"
+							cssClass="form-control" id="cusAddressL1"
+							placeholder="AddressLine 1" />
+						<form:errors path="customer.cusAddressL1" cssClass="error" />
+					</div>
+					<div class="form-group">
+						<form:input path="customer.cusAddressL2" type="text"
+							cssClass="form-control" id="cusAddressL2"
+							placeholder="AddressLine 2" />
+						<form:errors path="customer.cusAddressL2" cssClass="error" />
+					</div>
+					<div class="form-group">
+						<form:input path="customer.cusAddressL3" type="text"
+							cssClass="form-control" id="cusAddressL3"
+							placeholder="AddressLine 3" />
+						<form:errors path="customer.cusAddressL3" cssClass="error" />
+					</div>
 
-
-				<div class="form-group">
-					<select id="inputState" class="form-control">
-						<option selected>Choose...</option>
-						<option>...</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<select id="inputState" class="form-control">
-						<option selected>Choose...</option>
-						<option>...</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" id="inputAddress"
-						placeholder="1234 Main St">
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" id="inputAddress2"
-						placeholder="Apartment, studio, or floor">
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" id="inputAddress2"
-						placeholder="Apartment, studio, or floor">
-				</div>
-
-
+					<div class="form-group">
+						<form:input path="customer.cusMobile" type="text"
+							cssClass="form-control" id="cusMobile" placeholder="Mobile Phone" />
+						<form:errors path="customer.cusMobile" cssClass="error" />
+					</div>
+					<%-- <div class="form-group">
+						<form:input path="customer.cusRegDate" type="text"
+							cssClass="form-control" id="cusRegDate" placeholder="Date" />
+						<form:errors path="customer.cusRegDate" cssClass="error" />
+					</div> --%>
+					<button type="submit" class="btn btn-success">Save Main
+						Data</button>
+				</form:form>
 			</div>
-
-			<div class="col-md-6">
-				<div class="form-group">
-					<input type="text" class="form-control" id="inputAddress"
-						placeholder="1234 Main St">
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" id="inputAddress2"
-						placeholder="Apartment, studio, or floor">
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" id="inputAddress2"
-						placeholder="Apartment, studio, or floor">
-				</div>
-			</div>
-
-			<button type="submit" class="btn btn-primary">Sign in</button>
 
 
 		</div>
+
 
 	</div>
 	<div class="col-md-2">
