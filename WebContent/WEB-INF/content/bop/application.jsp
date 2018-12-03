@@ -30,7 +30,8 @@
 						<td>${data.customer.cusName }</td>
 						<td>${data.customer.cusNic }</td>
 						<td><a
-							onclick="populateSelectedApplicationData(${data.idassessment});">select</a></td>
+							onclick="populateSelectedApplicationData(${data.idassessment});">select</a>
+						</td>
 
 					</tr>
 				</c:forEach>
@@ -53,34 +54,54 @@
 		<%@ include file="/WEB-INF/content/bop/application-main-form.jsp"%>
 	</div>
 
+
 	<div class="row">
 		<div class="col-md-4">
 
 			<form>
-				<div class="form-group">Area 1
-					<input type="text" class="form-control" id="inputAddress"
+				<div class="form-group">
+					Area 1 <input type="text" class="form-control" id="inputAddress"
 						placeholder="Area 1">
 				</div>
 			</form>
 
 		</div>
 		<div class="col-md-8">
-			<form>
+			<form:form action="applicton-file-upload" method="POST"
+				modelAttribute="uploadWrapper" enctype="multipart/form-data">
+
+				<!--  <div class="form-group"> -->
+
+				<!-- </div> -->
+
 				<div class="form-group">
+
+					<form:select path="needDoc.idneeddoc" cssClass="form-control"
+						id="docSelector">
+						<form:option value="-1">-Select Ward-</form:option>
+						<form:options items="${needDocs}" itemValue="idneeddoc"
+							itemLabel="docCat.doccatName" />
+					</form:select>
 
 					<img class="profile-pic" src="image.png" class="rounded-circle "
 						id="pimg" width="70px" height="70px"> <i
-						class="fa fa-camera upload-button"></i> <input type='file'
-						class="file-upload" />
-					<%-- <form:input cssClass="file-upload" type="file" accept="image/*"
-					path="fileData" /> --%>
+						class="fa fa-camera upload-button"></i>
+					<!-- <input type='file' class="file-upload" /> -->
+					<form:input cssClass="file-upload" type="file" accept="image/*"
+						path="fileData" />
 					<%-- src="data:image/png;base64,${userWrapper.user.image}" --%>
-
+					<div id="anotherFileInput"></div>
 				</div>
+				<!-- <a class="btn btn-success" onclick="addNewFileInput()">new Upload</a> -->
 				<button type="submit" class="btn btn-success">Upload</button>
-			</form>
+			</form:form>
 		</div>
 	</div>
+
+
+	<%-- <div>
+		<%@ include file="/WEB-INF/content/bop/application-upload-form.jsp"%>
+	</div> --%>
 
 	<div class="float-right">
 		<button type="submit" class="btn btn-success">Sign in</button>
@@ -90,45 +111,47 @@
 <%@ include file="/WEB-INF/content/common/footer.jsp"%>
 
 <script>
+	$(document).ready(function() {
 
-function populateSelectedApplicationData(id) {
-	$("#applicationMainForm").html("");
-	$.ajax({
-		url : 'customer-data',
-		data : {
-			"tempId" : id
-		},
-		success : function(result) {
-			$("#applicationMainForm").html(result);
-		},error: function(){
-			alert('error');
-		}
-	});
-}
-</script>
+		var readURL = function(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
 
-<script>
-			$(document).ready(function() {
-
-				var readURL = function(input) {
-					if (input.files && input.files[0]) {
-						var reader = new FileReader();
-
-						reader.onload = function(e) {
-							$('.profile-pic').attr('src', e.target.result);
-						}
-
-						reader.readAsDataURL(input.files[0]);
-					}
+				reader.onload = function(e) {
+					$('.profile-pic').attr('src', e.target.result);
 				}
 
-				$(".file-upload").on('change', function() {
-					readURL(this);
-				});
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
 
-				$(".upload-button").on('click', function() {
-					$(".file-upload").click();
-				});
-			});
-		</script>
+		$(".file-upload").on('change', function() {
+			readURL(this);
+		});
+
+		$(".upload-button").on('click', function() {
+			$(".file-upload").click();
+		});
+	});
+
+	
+
+	function populateSelectedApplicationData(id) {
+		$("#applicationMainForm").html("");
+		$.ajax({
+			url : 'customer-data',
+			data : {
+				"tempId" : id
+			},
+			success : function(result) {
+				$("#applicationMainForm").html(result);
+			},
+			error : function() {
+				alert('error');
+			}
+		});
+	}
+
+	
+</script>
 

@@ -27,4 +27,6 @@ public interface NeedDocMapper {
     int updateByPrimaryKeySelective(NeedDoc record);
 
     int updateByPrimaryKey(NeedDoc record);
+    
+    List<NeedDoc> viewAll();
 }

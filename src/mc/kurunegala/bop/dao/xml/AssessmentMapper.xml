@@ -433,7 +433,7 @@
 	<select id="selectAllByState" resultMap="ResultMapWithCustomer">
 		SELECT * FROM
 		assessment
-		where assessment_status=#{state}
+		where assessment_status=#{state} limit 10
 	</select>
 
 	<resultMap id="ResultMapWithCustomer" extends="BaseResultMap"
@@ -471,6 +471,13 @@
 		<!-- <if test="searcher.assessmentNo != null searcher.assessmentNo and 
 			!= '' "> <bind name="assNo" value=" '%'+ searcher.assessmentNo + '%' " /> 
 			ass.assessment_no like #{assNo} and </if> -->
+
+		<if
+			test="searcher.assessmentNo != null and searcher.assessmentNo != '' ">
+			<bind name="assessNo" value=" '%'+ searcher.assessmentNo + '%'" />
+			ass.assessment_no like #{assessNo} and
+		</if>
+
 		<if
 			test="searcher.customerName != null and searcher.customerName != '' ">
 			<bind name="custName" value=" '%'+ searcher.customerName + '%'" />
@@ -491,5 +498,9 @@
 		where idAssessment = #{idassessment,jdbcType=INTEGER}
 
 	</select>
+	
+	<!-- <select id="viewMaxAssessmentNo" javaType="java.lang.String">
+	select max(assessment_no) from assessment
+	</select> -->
 
 </mapper>

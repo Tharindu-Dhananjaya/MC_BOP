@@ -3,45 +3,45 @@ package mc.kurunegala.bop.model;
 public class BopHasAssessment {
     private Integer idbopHasAssessmentcol;
 
-    private Integer bopIdbop;
+	private Integer bopIdbop;
 
-    private Integer assessmentIdassessment;
+	private Integer assessmentIdassessment;
 
-    private Integer bopHasAssessmentStatus;
+	private Integer bopHasAssessmentStatus;
 
-    public Integer getIdbopHasAssessmentcol() {
-        return idbopHasAssessmentcol;
-    }
+	public Integer getIdbopHasAssessmentcol() {
+		return idbopHasAssessmentcol;
+	}
 
-    public void setIdbopHasAssessmentcol(Integer idbopHasAssessmentcol) {
-        this.idbopHasAssessmentcol = idbopHasAssessmentcol;
-    }
+	public void setIdbopHasAssessmentcol(Integer idbopHasAssessmentcol) {
+		this.idbopHasAssessmentcol = idbopHasAssessmentcol;
+	}
 
-    public Integer getBopIdbop() {
-        return bopIdbop;
-    }
+	public Integer getBopIdbop() {
+		return bopIdbop;
+	}
 
-    public void setBopIdbop(Integer bopIdbop) {
-        this.bopIdbop = bopIdbop;
-    }
+	public void setBopIdbop(Integer bopIdbop) {
+		this.bopIdbop = bopIdbop;
+	}
 
-    public Integer getAssessmentIdassessment() {
-        return assessmentIdassessment;
-    }
+	public Integer getAssessmentIdassessment() {
+		return assessmentIdassessment;
+	}
 
-    public void setAssessmentIdassessment(Integer assessmentIdassessment) {
-        this.assessmentIdassessment = assessmentIdassessment;
-    }
+	public void setAssessmentIdassessment(Integer assessmentIdassessment) {
+		this.assessmentIdassessment = assessmentIdassessment;
+	}
 
-    public Integer getBopHasAssessmentStatus() {
-        return bopHasAssessmentStatus;
-    }
+	public Integer getBopHasAssessmentStatus() {
+		return bopHasAssessmentStatus;
+	}
 
-    public void setBopHasAssessmentStatus(Integer bopHasAssessmentStatus) {
-        this.bopHasAssessmentStatus = bopHasAssessmentStatus;
-    }
-    
-    public Assessment getAssessment() {
+	public void setBopHasAssessmentStatus(Integer bopHasAssessmentStatus) {
+		this.bopHasAssessmentStatus = bopHasAssessmentStatus;
+	}
+
+	    public Assessment getAssessment() {
 		return assessment;
 	}
 

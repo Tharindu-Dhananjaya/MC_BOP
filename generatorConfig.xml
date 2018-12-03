@@ -39,8 +39,10 @@
 		<table tableName="BOP" domainObjectName="BOP" />
 		<table tableName="Uploads" domainObjectName="Uploads" />
 		<table tableName="Application_Catagory" domainObjectName="ApplicationCatagory" />
-		<table tableName="NeedDoc" domainObjectName="NeedDoc" /> -->
+		<table tableName="NeedDoc" domainObjectName="NeedDoc" />
 		<table tableName="bop_has_assessment" domainObjectName="BopHasAssessment" />
+		 -->
+		
 		
 		
 

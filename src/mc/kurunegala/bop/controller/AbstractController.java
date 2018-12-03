@@ -17,14 +17,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import mc.kurunegala.bop.dao.AssessmentMapper;
 import mc.kurunegala.bop.model.AssessmentWrapper;
 import mc.kurunegala.bop.model.User;
+import mc.kurunegala.bop.service.AssessmentService;
+import mc.kurunegala.bop.service.BopService;
 
+public class AbstractController {
 
-public class AbstractController  {
+	@Autowired
+	BopService bopservice;
 
 	private HttpSession session;
-	private int notificationCount;
 
 	private Random random = new Random(1000);
 
@@ -32,13 +36,28 @@ public class AbstractController  {
 		return (int) (Calendar.getInstance().getTimeInMillis() + random.nextInt());
 	}
 
+	public String generateBOPNmber() {
+		String newAssNo = null;
+		String assNo = bopservice.getMaxAssessmentNumber();
+		if (assNo != null) {
+			String data[] = assNo.split("BOP/KU/");
+			int currentAss = Integer.parseInt(data[1]);
+			int newAss = ++currentAss;
+			newAssNo = "BOP/KU/00" + newAss;
+		} else {
+			newAssNo = "BOP/KU/001";
+		}
+		return newAssNo;
+	}
+
 	public void addSessionUser(User user, HttpSession session) {
 		session.setAttribute("User", user);
 	}
-	
-	public void addSessionAssessmentWrapper(AssessmentWrapper wrapper,HttpSession session) {
+
+	public void addSessionAssessmentWrapper(AssessmentWrapper wrapper, HttpSession session) {
 		session.setAttribute("AssWrapper", wrapper);
 	}
+
 	public AssessmentWrapper getSessionAssessment(HttpSession session) {
 		return (AssessmentWrapper) session.getAttribute("AssWrapper");
 	}

@@ -7,31 +7,33 @@ import mc.kurunegala.bop.model.BOPWithBLOBs;
 import org.apache.ibatis.annotations.Param;
 
 public interface BOPMapper {
-    long countByExample(BOPExample example);
+	long countByExample(BOPExample example);
 
-    int deleteByExample(BOPExample example);
+	int deleteByExample(BOPExample example);
 
-    int deleteByPrimaryKey(Integer idbop);
+	int deleteByPrimaryKey(Integer idbop);
 
-    int insert(BOPWithBLOBs record);
+	int insert(BOPWithBLOBs record);
 
-    int insertSelective(BOPWithBLOBs record);
+	int insertSelective(BOPWithBLOBs record);
 
-    List<BOPWithBLOBs> selectByExampleWithBLOBs(BOPExample example);
+	List<BOPWithBLOBs> selectByExampleWithBLOBs(BOPExample example);
 
-    List<BOP> selectByExample(BOPExample example);
+	List<BOP> selectByExample(BOPExample example);
 
-    BOPWithBLOBs selectByPrimaryKey(Integer idbop);
+	BOPWithBLOBs selectByPrimaryKey(Integer idbop);
 
-    int updateByExampleSelective(@Param("record") BOPWithBLOBs record, @Param("example") BOPExample example);
+	int updateByExampleSelective(@Param("record") BOPWithBLOBs record, @Param("example") BOPExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") BOPWithBLOBs record, @Param("example") BOPExample example);
+	int updateByExampleWithBLOBs(@Param("record") BOPWithBLOBs record, @Param("example") BOPExample example);
 
-    int updateByExample(@Param("record") BOP record, @Param("example") BOPExample example);
+	int updateByExample(@Param("record") BOP record, @Param("example") BOPExample example);
 
-    int updateByPrimaryKeySelective(BOPWithBLOBs record);
+	int updateByPrimaryKeySelective(BOPWithBLOBs record);
 
-    int updateByPrimaryKeyWithBLOBs(BOPWithBLOBs record);
+	int updateByPrimaryKeyWithBLOBs(BOPWithBLOBs record);
 
-    int updateByPrimaryKey(BOP record);
+	int updateByPrimaryKey(BOP record);
+
+	String viewMaxBopNo();
 }

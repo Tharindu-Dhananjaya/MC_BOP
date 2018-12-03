@@ -40,4 +40,14 @@ public class NeedDoc {
     public void setDoccatIddoccat(Integer doccatIddoccat) {
         this.doccatIddoccat = doccatIddoccat;
     }
+    
+    public Doccat getDocCat() {
+		return docCat;
+	}
+
+	public void setDocCat(Doccat docCat) {
+		this.docCat = docCat;
+	}
+
+	private Doccat docCat;
 }

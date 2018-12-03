@@ -17,8 +17,12 @@
 				<form:form modelAttribute="assessment" action="bop.html"
 					method="POST">
 					<div class="form-group">
+					 	<form:label path="assessmentNo">BOP No : ${assessment.assessmentNo}</form:label> 
+					</div>
+					<div class="form-group">
 						<form:input path="idassessment" type="hidden" />
 						<form:input path="customer.idcustomer" type="hidden" />
+
 						<form:input path="customer.cusNic" type="text"
 							cssClass="form-control" id="custNic" placeholder="NIC" />
 						<form:errors path="customer.cusNic" cssClass="error" />

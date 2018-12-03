@@ -33,4 +33,8 @@ public class AssessmentService {
 		mapper.updateByPrimaryKeySelective(assessment);
 	}
 
+	/*public String getMaxAssessmentNumber() {
+		return mapper.viewMaxAssessmentNo();
+	}*/
+
 }

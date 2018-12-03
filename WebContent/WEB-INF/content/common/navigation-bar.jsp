@@ -8,27 +8,27 @@
 	<div class="col-md-2">
 		<ul class="list-group">
 
-			<li class="list-group-item"><a href="bop-assessment.html"
+			<li class="list-group-item pl-1"><a href="bop-assessment.html"
 				class="btn btn-secondary btn-lg">Assessment Data</a></li>
-			<li class="list-group-item"><a href="bop-application"
+			<li class="list-group-item pl-1"><a href="bop-application"
 				class="btn btn-secondary btn-lg">BOP Applications</a></li>
-			<li class="list-group-item"><a href="bop-approve"
+			<li class="list-group-item pl-1"><a href="bop-assessment-basic-view"
 				class="btn btn-secondary btn-lg"> BOP Approve<span
 					class="badge badge-pill badge-danger">4</span>
 			</a></li>
-			<li class="list-group-item"><a href="bop-reject"
+			<li class="list-group-item pl-1"><a href="bop-reject"
 				class="btn btn-secondary btn-lg"> BOP reject<span
 					class="badge badge-pill badge-danger">4</span>
 			</a></li>
-			<li class="list-group-item"><a href="bop-pending"
+			<li class="list-group-item pl-1"><a href="bop-pending"
 				class="btn btn-secondary btn-lg"> BOP Pending<span
 					class="badge badge-pill badge-danger">4</span>
 			</a></li>
-			<li class="list-group-item"><a href="bop-ready"
+			<li class="list-group-item pl-1"><a href="bop-ready"
 				class="btn btn-secondary btn-lg"> BOP Ready<span
 					class="badge badge-pill badge-danger">4</span>
 			</a></li>
-			<li class="list-group-item"><a href="bop-complete"
+			<li class="list-group-item pl-1"><a href="bop-complete"
 				class="btn btn-secondary btn-lg"> BOP Complete<span
 					class="badge badge-pill badge-danger">4</span>
 			</a></li>

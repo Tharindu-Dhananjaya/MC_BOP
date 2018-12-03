@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-<script type='text/javascript' src="<c:url value="/resources/js/jquery-3.1.1.min.js"/>">
-	/* if (typeof jQuery == 'undefined') {
+
+<script>
+	if (typeof jQuery == 'undefined') {
 		document
-				.write("<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'><\/script>");
-	} */
+				.write("<script type='text/javascript' src='<c:url value='/resources/js/jquery-3.1.1.min.js'/>'><\/script>");
+	}
 </script>
 
 <!-- <script

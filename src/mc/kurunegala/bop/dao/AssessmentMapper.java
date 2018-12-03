@@ -35,4 +35,6 @@ public interface AssessmentMapper {
 	List<Assessment> selectbySeracher(@Param("searcher")AssessmentSearcher searcher);
 	
 	Assessment selectByPrimaryKeyWithCustomer(Integer idassessment);
+
+	/*String viewMaxAssessmentNo();*/
 }
