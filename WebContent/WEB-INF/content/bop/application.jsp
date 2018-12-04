@@ -67,34 +67,7 @@
 
 		</div>
 		<div class="col-md-8">
-			<form:form action="applicton-file-upload" method="POST"
-				modelAttribute="uploadWrapper" enctype="multipart/form-data">
-
-				<!--  <div class="form-group"> -->
-
-				<!-- </div> -->
-
-				<div class="form-group">
-
-					<form:select path="needDoc.idneeddoc" cssClass="form-control"
-						id="docSelector">
-						<form:option value="-1">-Select Ward-</form:option>
-						<form:options items="${needDocs}" itemValue="idneeddoc"
-							itemLabel="docCat.doccatName" />
-					</form:select>
-
-					<img class="profile-pic" src="image.png" class="rounded-circle "
-						id="pimg" width="70px" height="70px"> <i
-						class="fa fa-camera upload-button"></i>
-					<!-- <input type='file' class="file-upload" /> -->
-					<form:input cssClass="file-upload" type="file" accept="image/*"
-						path="fileData" />
-					<%-- src="data:image/png;base64,${userWrapper.user.image}" --%>
-					<div id="anotherFileInput"></div>
-				</div>
-				<!-- <a class="btn btn-success" onclick="addNewFileInput()">new Upload</a> -->
-				<button type="submit" class="btn btn-success">Upload</button>
-			</form:form>
+			<%@ include file="/WEB-INF/content/bop/application-uploader.jsp"%>
 		</div>
 	</div>
 
@@ -109,6 +82,7 @@
 	</div>
 </div>
 <%@ include file="/WEB-INF/content/common/footer.jsp"%>
+
 
 <script>
 	$(document).ready(function() {

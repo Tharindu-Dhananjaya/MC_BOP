@@ -195,6 +195,15 @@ public class BopController extends AbstractController {
 		return mv;
 	}
 
+	@RequestMapping(value = "/customer-data-for-view", method = RequestMethod.GET)
+	public ModelAndView showCustomerForAssessmentView(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("tempId") int assessmentId) {
+		ModelAndView mv = new ModelAndView("bop/customer-basic-view");
+		Assessment assessment = assessmentService.get(assessmentId);
+		mv.addObject("assessment", assessment);
+		return mv;
+	}
+
 	@RequestMapping(value = "/bop", method = RequestMethod.POST)
 	public ModelAndView processBop(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute Assessment assessment) {
