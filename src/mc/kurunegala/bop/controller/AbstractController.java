@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import mc.kurunegala.bop.dao.AssessmentMapper;
 import mc.kurunegala.bop.model.AssessmentWrapper;
+import mc.kurunegala.bop.model.BopHasAssessment;
 import mc.kurunegala.bop.model.User;
 import mc.kurunegala.bop.service.AssessmentService;
 import mc.kurunegala.bop.service.BopService;
@@ -56,6 +57,14 @@ public class AbstractController {
 
 	public void addSessionAssessmentWrapper(AssessmentWrapper wrapper, HttpSession session) {
 		session.setAttribute("AssWrapper", wrapper);
+	}
+
+	public void addSessionBop(BopHasAssessment bop, HttpSession session) {
+		session.setAttribute("BOPASS", bop);
+	}
+
+	public void addSessionBopNumber(String bopNo, HttpSession session) {
+		session.setAttribute("BOPNO", bopNo);
 	}
 
 	public AssessmentWrapper getSessionAssessment(HttpSession session) {

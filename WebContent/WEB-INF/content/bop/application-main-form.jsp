@@ -14,55 +14,62 @@
 		<div class="row">
 
 			<div class="col-md-6">
-				<form:form modelAttribute="assessment" action="bop.html"
+				<form:form modelAttribute="bopWrapper" action="bop.html"
 					method="POST">
 					<div class="form-group">
-					 	<form:label path="assessmentNo">BOP No : ${assessment.assessmentNo}</form:label> 
+						<form:label path="assessment.assessmentNo">BOP No : ${bopWrapper.bop.bopNo}</form:label>
 					</div>
 					<div class="form-group">
-						<form:input path="idassessment" type="hidden" />
-						<form:input path="customer.idcustomer" type="hidden" />
+						<form:input path="bop.bopNo" type="hidden" />
+						<form:input path="assessment.idassessment" type="hidden" />
+						<form:input path="assessment.customer.idcustomer" type="hidden" />
 
-						<form:input path="customer.cusNic" type="text"
+						<form:input path="assessment.customer.cusNic" type="text"
 							cssClass="form-control" id="custNic" placeholder="NIC" />
-						<form:errors path="customer.cusNic" cssClass="error" />
+						<form:errors path="assessment.customer.cusNic" cssClass="error" />
 					</div>
 					<div class="form-group">
-						<form:input path="customer.cusName" type="text"
+						<form:input path="assessment.customer.cusName" type="text"
 							cssClass="form-control" id="custName" placeholder="Customer Name" />
-						<form:errors path="customer.cusName" cssClass="error" />
+						<form:errors path="assessment.customer.cusName" cssClass="error" />
 					</div>
 					<div class="form-group">
-						<form:input path="customer.cusAddressL1" type="text"
+						<form:input path="assessment.customer.cusAddressL1" type="text"
 							cssClass="form-control" id="cusAddressL1"
 							placeholder="AddressLine 1" />
-						<form:errors path="customer.cusAddressL1" cssClass="error" />
+						<form:errors path="assessment.customer.cusAddressL1"
+							cssClass="error" />
 					</div>
 					<div class="form-group">
-						<form:input path="customer.cusAddressL2" type="text"
+						<form:input path="assessment.customer.cusAddressL2" type="text"
 							cssClass="form-control" id="cusAddressL2"
 							placeholder="AddressLine 2" />
-						<form:errors path="customer.cusAddressL2" cssClass="error" />
+						<form:errors path="assessment.customer.cusAddressL2"
+							cssClass="error" />
 					</div>
 					<div class="form-group">
-						<form:input path="customer.cusAddressL3" type="text"
+						<form:input path="assessment.customer.cusAddressL3" type="text"
 							cssClass="form-control" id="cusAddressL3"
 							placeholder="AddressLine 3" />
-						<form:errors path="customer.cusAddressL3" cssClass="error" />
+						<form:errors path="assessment.customer.cusAddressL3"
+							cssClass="error" />
 					</div>
 
 					<div class="form-group">
-						<form:input path="customer.cusMobile" type="text"
+						<form:input path="assessment.customer.cusMobile" type="text"
 							cssClass="form-control" id="cusMobile" placeholder="Mobile Phone" />
-						<form:errors path="customer.cusMobile" cssClass="error" />
+						<form:errors path="assessment.customer.cusMobile" cssClass="error" />
 					</div>
 					<%-- <div class="form-group">
 						<form:input path="customer.cusRegDate" type="text"
 							cssClass="form-control" id="cusRegDate" placeholder="Date" />
 						<form:errors path="customer.cusRegDate" cssClass="error" />
 					</div> --%>
+
+					<%-- <c:if test=" ${not empty assessment.idassessment}"> --%>
 					<button type="submit" class="btn btn-success">Save Main
 						Data</button>
+					<%-- </c:if> --%>
 				</form:form>
 			</div>
 

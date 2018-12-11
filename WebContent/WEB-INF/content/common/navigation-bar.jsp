@@ -10,11 +10,12 @@
 
 			<li class="list-group-item pl-1"><a href="bop-assessment.html"
 				class="btn btn-secondary btn-lg">Assessment Data</a></li>
-			<li class="list-group-item pl-1"><a href="bop-application"
-				class="btn btn-secondary btn-lg">BOP Applications</a></li>
-			<li class="list-group-item pl-1"><a href="bop-assessment-basic-view"
-				class="btn btn-secondary btn-lg"> BOP Approve<span
-					class="badge badge-pill badge-danger">4</span>
+			<li class="list-group-item pl-1"><a
+				href="bop-application?tempId=null" class="btn btn-secondary btn-lg">BOP
+					Applications</a></li>
+			<li class="list-group-item pl-1"><a
+				href="bop-assessment-basic-view" class="btn btn-secondary btn-lg">
+					BOP Approve<span class="badge badge-pill badge-danger">4</span>
 			</a></li>
 			<li class="list-group-item pl-1"><a href="bop-reject"
 				class="btn btn-secondary btn-lg"> BOP reject<span

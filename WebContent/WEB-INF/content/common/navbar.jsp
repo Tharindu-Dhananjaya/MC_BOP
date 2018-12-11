@@ -10,9 +10,12 @@
 	<nav id="navbar-example2" class="navbar navbar-light bg-light">
 		<a class="navbar-brand" href="#">MC Kurunegala</a>
 		<ul class="nav nav-pills">
-			<li class="nav-item"><a class="nav-link" href="#fat">user</a></li>
-			<!-- <li class="nav-item"><a class="nav-link" href="#mdo">@mdo</a></li>
-			<li class="nav-item dropdown"><a
+			<li class="nav-item"><a class="nav-link" href="#fat">${User.userFullName }</a></li>
+			<c:if test="${not empty User}">
+				<li class="nav-item"><a class="nav-link" href="logout.html">Log
+						Out</a></li>
+			</c:if>
+			<!--<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
 				<div class="dropdown-menu">

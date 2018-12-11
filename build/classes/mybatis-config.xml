@@ -17,6 +17,8 @@
 		<mapper resource="mc/kurunegala/bop/dao/xml/NeedDocMapper.xml" />
 		<mapper resource="mc/kurunegala/bop/dao/xml/UploadsMapper.xml" />
 		<mapper resource="mc/kurunegala/bop/dao/xml/DoccatMapper.xml" />
+		<mapper resource="mc/kurunegala/bop/dao/xml/UserMapper.xml" />
+		<mapper resource="mc/kurunegala/bop/dao/xml/UserLoginMapper.xml" />
 
 
 

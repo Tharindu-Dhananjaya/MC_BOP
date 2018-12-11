@@ -30,7 +30,7 @@
 						<td>${data.customer.cusName }</td>
 						<td>${data.customer.cusNic }</td>
 						<td><a
-							onclick="populateSelectedApplicationData(${data.idassessment});">select</a>
+							onclick="populateSelectedApplicationData(${data.idassessment});">select ${bopWrapper.bop.bopNo}</a>
 						</td>
 
 					</tr>
@@ -48,6 +48,7 @@
 			</tbody>
 		</table>
 	</div>
+	
 
 	<div id="applicationMainForm">
 
@@ -58,12 +59,24 @@
 	<div class="row">
 		<div class="col-md-4">
 
-			<form>
+			<form:form action="bop-form" modelAttribute="bopWrapper"
+				method="POST">
 				<div class="form-group">
-					Area 1 <input type="text" class="form-control" id="inputAddress"
-						placeholder="Area 1">
+					Area 1
+					<form:input type="text" path="perch" cssClass="form-control"
+						id="inputAddress" placeholder="Area 1" />
 				</div>
-			</form>
+
+				<div class="form-group">
+					<div id="buildyourform"></div>
+				</div>
+				<input type="button" class="btn btn-success" value="Add a field"
+					class="add" id="addAddress" />
+				<c:if test=" ${not empty assessment.idassessment}">
+					<input type="submit" class="btn btn-success" value="Save"
+						class="add" id="addAddress" />
+				</c:if>
+			</form:form>
 
 		</div>
 		<div class="col-md-8">
@@ -71,13 +84,8 @@
 		</div>
 	</div>
 
-
-	<%-- <div>
-		<%@ include file="/WEB-INF/content/bop/application-upload-form.jsp"%>
-	</div> --%>
-
 	<div class="float-right">
-		<button type="submit" class="btn btn-success">Sign in</button>
+		<button type="submit" class="btn btn-success">Save Application Data</button>
 
 	</div>
 </div>
@@ -127,5 +135,27 @@
 	}
 
 	
+</script>
+
+<script>
+$(document).ready(function() {
+    $("#addAddress").click(function() {
+    		var lastField = $("#buildyourform div:last");
+        var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
+        var fieldWrapper = $("<div class=\"fieldwrapper\" id=\"field" + intId + "\"/>");
+        fieldWrapper.data("idx", intId);
+        
+        var fName = $("<input type=\"text\" class=\"form-control\" name=\"perch\" />");
+        var removeButton = $("<input type=\"button\" class=\"remove\" value=\"-\" />");
+        removeButton.click(function() {
+            $(this).parent().remove();
+        });
+        fieldWrapper.append(fName);
+        fieldWrapper.append(removeButton);
+        $("#buildyourform").append(fieldWrapper);
+    });
+    });
+
+
 </script>
 

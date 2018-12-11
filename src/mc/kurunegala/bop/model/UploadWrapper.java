@@ -6,6 +6,7 @@ public class UploadWrapper {
 	
 	private MultipartFile fileData;
 	private NeedDoc needDoc;
+	private String bopNo;
 	
 
 	public MultipartFile getFileData() {
@@ -22,6 +23,14 @@ public class UploadWrapper {
 
 	public void setNeedDoc(NeedDoc needDoc) {
 		this.needDoc = needDoc;
+	}
+
+	public String getBopNo() {
+		return bopNo;
+	}
+
+	public void setBopNo(String bopNo) {
+		this.bopNo = bopNo;
 	}
 
 }

@@ -1,6 +1,5 @@
 package mc.kurunegala.bop.controller;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.NestedTransactionNotSupportedException;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,8 +22,8 @@ import mc.kurunegala.bop.model.ApplicationCatagory;
 import mc.kurunegala.bop.model.Assessment;
 import mc.kurunegala.bop.model.AssessmentSearcher;
 import mc.kurunegala.bop.model.AssessmentWrapper;
-import mc.kurunegala.bop.model.BOP;
 import mc.kurunegala.bop.model.BOPWithBLOBs;
+import mc.kurunegala.bop.model.BOPWrapper;
 import mc.kurunegala.bop.model.BopHasAssessment;
 import mc.kurunegala.bop.model.Customer;
 import mc.kurunegala.bop.model.NeedDoc;
@@ -36,7 +34,6 @@ import mc.kurunegala.bop.model.Ward;
 import mc.kurunegala.bop.service.ApplicationCategoryService;
 import mc.kurunegala.bop.service.AssessmentService;
 import mc.kurunegala.bop.service.BopHasAssessmentService;
-import mc.kurunegala.bop.service.BopService;
 import mc.kurunegala.bop.service.CustomerService;
 import mc.kurunegala.bop.service.NeedDocService;
 import mc.kurunegala.bop.service.StreetService;
@@ -68,19 +65,28 @@ public class BopController extends AbstractController {
 	private String appCategory;
 
 	@RequestMapping(value = "/bop-application", method = RequestMethod.GET)
-	public ModelAndView showApplication(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView showApplication(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("tempId") String bopNo) {
 
-		List<BopHasAssessment> bopHasAssessment = bopHasAssessmentService.viewAllByState(1);
+		// List<BopHasAssessment> bopHasAssessment =
+		// bopHasAssessmentService.viewAllByState(1);
 		List<NeedDoc> needDocs = needDocService.viewAll();
 
 		ModelAndView mv = new ModelAndView("bop/application");
 
-		Assessment ass = new Assessment();
-		ass.setAssessmentNo(generateBOPNmber());
+//		Assessment ass = new Assessment();
 
-		mv.addObject("assessment", ass);
+		BOPWrapper wrapper = new BOPWrapper();
+		if (bopNo != null && !bopNo.equals("") && !bopNo.equals("null")) {
+			wrapper.getBop().setBopNo(bopNo);
+		} else {
+			wrapper.getBop().setBopNo(generateBOPNmber());
+		}
+
+		mv.addObject("assessment", new Assessment());
 		mv.addObject("uploadWrapper", new UploadWrapper());
 		mv.addObject("needDocs", needDocs);
+		mv.addObject("bopWrapper", wrapper);
 
 		return mv;
 	}
@@ -191,7 +197,10 @@ public class BopController extends AbstractController {
 			@RequestParam("tempId") int assessmentId) {
 		ModelAndView mv = new ModelAndView("bop/application-main-form");
 		Assessment assessment = assessmentService.get(assessmentId);
-		mv.addObject("assessment", assessment);
+		BOPWrapper wrapper = new BOPWrapper();
+		wrapper.setAssessment(assessment);
+		mv.addObject("bopWrapper", wrapper);
+
 		return mv;
 	}
 
@@ -206,8 +215,8 @@ public class BopController extends AbstractController {
 
 	@RequestMapping(value = "/bop", method = RequestMethod.POST)
 	public ModelAndView processBop(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute Assessment assessment) {
-		Customer customer = assessment.getCustomer();
+			@ModelAttribute BOPWrapper bopWrapper) {
+		Customer customer = bopWrapper.getAssessment().getCustomer();
 		if (customer.getIdcustomer() != null) {
 			customerService.update(customer);
 		} else {
@@ -215,25 +224,26 @@ public class BopController extends AbstractController {
 			customer.setCusStatus(1);
 			customerService.add(customer);
 
-			Assessment ass = assessmentService.get(assessment.getIdassessment());
+			Assessment ass = assessmentService.get(bopWrapper.getAssessment().getIdassessment());
 			ass.setCustomerIdcustomer(customer.getIdcustomer());
 			assessmentService.update(ass);
 		}
 		BOPWithBLOBs bop = new BOPWithBLOBs();
-		bop.setIdbop(generatePrimaryKey());
 		bop.setCustomerIdcustomer(customer.getIdcustomer());
 		bopservice.add(bop);
 
 		BopHasAssessment bopAss = new BopHasAssessment();
 		bopAss.setIdbopHasAssessmentcol(generatePrimaryKey());
 		bopAss.setBopIdbop(bop.getIdbop());
-		bopAss.setAssessmentIdassessment(assessment.getIdassessment());
+		bopAss.setAssessmentIdassessment(bopWrapper.getAssessment().getIdassessment());
 		bopAss.setBopHasAssessmentStatus(1);
 		bopHasAssessmentService.add(bopAss);
 
 		// customer has application to be continued
 
-		ModelAndView mv = new ModelAndView("redirect:bop-application");
+		addSessionBop(bopAss, request.getSession());
+
+		ModelAndView mv = new ModelAndView("redirect:bop-application", "tempId", "null");
 		return mv;
 	}
 
@@ -254,6 +264,8 @@ public class BopController extends AbstractController {
 			e.printStackTrace();
 		}
 
+		addSessionBopNumber(uploadWrapper.getBopNo(), request.getSession());
+
 		NeedDoc doc = needDocService.viewById(uploadWrapper.getNeedDoc().getIdneeddoc());
 		Uploads upload = new Uploads();
 		upload.setIdapplication(1);
@@ -263,7 +275,8 @@ public class BopController extends AbstractController {
 		upload.setDoccatIddoccat(doc.getDoccatIddoccat());
 		uploadService.add(upload);
 
-		ModelAndView mv = new ModelAndView("bop/selected-assessment-table");
+		System.out.println(uploadWrapper.getBopNo());
+		ModelAndView mv = new ModelAndView("redirect:bop-application", "tempId", uploadWrapper.getBopNo());
 
 		return mv;
 	}
@@ -271,7 +284,8 @@ public class BopController extends AbstractController {
 	@RequestMapping(value = "/bop-assessment-basic-view", method = RequestMethod.GET)
 	public ModelAndView showAssessmentView(HttpServletRequest request, HttpServletResponse response) {
 
-		List<BopHasAssessment> bopHasAssessment = bopHasAssessmentService.viewAllByState(1);
+		// List<BopHasAssessment> bopHasAssessment =
+		// bopHasAssessmentService.viewAllByState(1);
 		List<NeedDoc> needDocs = needDocService.viewAll();
 
 		List<Assessment> assessments = assessmentService.viewAllActive(1);
@@ -281,6 +295,14 @@ public class BopController extends AbstractController {
 		mv.addObject("uploadWrapper", new UploadWrapper());
 		mv.addObject("needDocs", needDocs);
 
+		return mv;
+	}
+
+	@RequestMapping(value = "/bop-form", method = RequestMethod.POST)
+	public ModelAndView processBopForm(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute BOPWrapper bopWrapper) {
+		ModelAndView mv = new ModelAndView("bop/list");
+		// mv.addObject("user", new UserAccount());
 		return mv;
 	}
 

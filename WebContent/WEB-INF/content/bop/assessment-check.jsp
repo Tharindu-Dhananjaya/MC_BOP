@@ -88,7 +88,7 @@
 	</div>
 
 	<div class="float-right">
-		<a href="bop-application" class="btn btn-primary">Application</a>
+		<a href="bop-application?tempId=null" class="btn btn-primary">Application</a>
 
 	</div>
 </div>
