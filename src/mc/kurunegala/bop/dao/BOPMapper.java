@@ -5,6 +5,8 @@ import mc.kurunegala.bop.model.BOP;
 import mc.kurunegala.bop.model.BOPExample;
 import mc.kurunegala.bop.model.BOPWithBLOBs;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
 
 public interface BOPMapper {
 	long countByExample(BOPExample example);
@@ -36,4 +38,8 @@ public interface BOPMapper {
 	int updateByPrimaryKey(BOP record);
 
 	String viewMaxBopNo();
+
+	@Select("select * from bop where BOP_no=#{bopNo}")
+	@ResultMap("ResultMapWithBLOBs")
+	BOPWithBLOBs selectByBopNo(String bopNo);
 }

@@ -30,8 +30,8 @@
 						<td>${data.customer.cusName }</td>
 						<td>${data.customer.cusNic }</td>
 						<td><a
-							onclick="populateSelectedApplicationData(${data.idassessment});">select ${bopWrapper.bop.bopNo}</a>
-						</td>
+							onclick="populateSelectedApplicationData(${data.idassessment},'${bopWrapper.bop.bopNo}');">select
+								${bopWrapper.bop.bopNo}</a></td>
 
 					</tr>
 				</c:forEach>
@@ -48,7 +48,7 @@
 			</tbody>
 		</table>
 	</div>
-	
+
 
 	<div id="applicationMainForm">
 
@@ -61,6 +61,7 @@
 
 			<form:form action="bop-form" modelAttribute="bopWrapper"
 				method="POST">
+				<form:hidden path="bop.bopNo" value="${bopWrapper.bop.bopNo}"/>
 				<div class="form-group">
 					Area 1
 					<form:input type="text" path="perch" cssClass="form-control"
@@ -70,12 +71,15 @@
 				<div class="form-group">
 					<div id="buildyourform"></div>
 				</div>
-				<input type="button" class="btn btn-success" value="Add a field"
-					class="add" id="addAddress" />
-				<c:if test=" ${not empty assessment.idassessment}">
-					<input type="submit" class="btn btn-success" value="Save"
+				<input type="button" class="btn btn-sm btn-success" value="Add Ares"
+					class="add" id="addAddress" /><br/><br/>
+					Land Mark Completed
+					<form:radiobutton path="landMarkComleted" value="YES"/>yes
+					<form:radiobutton path="landMarkComleted" value="NO"/>no
+					<form:input type="text" path="landType" cssClass="form-control m-1"
+						 placeholder="Road,Forrest,Land,Recivations" />
+					<input type="submit" class="btn btn-success" value="Save Aplication Data"
 						class="add" id="addAddress" />
-				</c:if>
 			</form:form>
 
 		</div>
@@ -84,10 +88,11 @@
 		</div>
 	</div>
 
-	<div class="float-right">
-		<button type="submit" class="btn btn-success">Save Application Data</button>
+	<!-- <div class="float-right">
+		<button type="submit" class="btn btn-success">Save
+			Application Data</button>
 
-	</div>
+	</div> -->
 </div>
 <%@ include file="/WEB-INF/content/common/footer.jsp"%>
 
@@ -118,12 +123,13 @@
 
 	
 
-	function populateSelectedApplicationData(id) {
+	function populateSelectedApplicationData(id,bop) {
 		$("#applicationMainForm").html("");
 		$.ajax({
 			url : 'customer-data',
 			data : {
-				"tempId" : id
+				"tempId" : id,
+				"bopNo" : bop
 			},
 			success : function(result) {
 				$("#applicationMainForm").html(result);

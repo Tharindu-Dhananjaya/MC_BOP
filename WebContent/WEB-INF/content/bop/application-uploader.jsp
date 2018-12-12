@@ -9,7 +9,7 @@
 <form:form action="applicton-file-upload" method="POST"
 	modelAttribute="uploadWrapper" enctype="multipart/form-data">
 
-	<form:input path="bopNo" value="${assessment.assessmentNo}" type="hidden"/>
+	<form:input path="bopNo" value="${bopWrapper.bop.bopNo}" type="hidden" />
 
 	<div class="form-group">
 
@@ -32,7 +32,7 @@
 	<!-- <a class="btn btn-success" onclick="addNewFileInput()">new Upload</a> -->
 
 	<%-- <c:if test=" ${not empty assessment.idassessment}"> --%>
-		<button type="submit" class="btn btn-success">Upload</button>
+	<button type="submit" class="btn btn-success">Upload</button>
 	<%-- </c:if> --%>
 </form:form>
 

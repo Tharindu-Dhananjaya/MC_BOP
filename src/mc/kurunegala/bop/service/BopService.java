@@ -22,4 +22,12 @@ public class BopService {
 		return mapper.viewMaxBopNo();
 	}
 
+	public BOPWithBLOBs viewByBopNo(String bopNo) {
+		return mapper.selectByBopNo(bopNo);
+	}
+
+	public void update(BOPWithBLOBs bop) {
+		mapper.updateByPrimaryKeySelective(bop);
+	}
+
 }

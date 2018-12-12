@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import mc.kurunegala.bop.model.ApplicationCatagory;
+import mc.kurunegala.bop.model.Area;
 import mc.kurunegala.bop.model.Assessment;
 import mc.kurunegala.bop.model.AssessmentSearcher;
 import mc.kurunegala.bop.model.AssessmentWrapper;
@@ -32,6 +34,7 @@ import mc.kurunegala.bop.model.UploadWrapper;
 import mc.kurunegala.bop.model.Uploads;
 import mc.kurunegala.bop.model.Ward;
 import mc.kurunegala.bop.service.ApplicationCategoryService;
+import mc.kurunegala.bop.service.AreaService;
 import mc.kurunegala.bop.service.AssessmentService;
 import mc.kurunegala.bop.service.BopHasAssessmentService;
 import mc.kurunegala.bop.service.CustomerService;
@@ -59,6 +62,8 @@ public class BopController extends AbstractController {
 	NeedDocService needDocService;
 	@Autowired
 	UploadSearvice uploadService;
+	@Autowired
+	AreaService areaService;
 
 	private static String UPLOADED_FOLDER = "F:\\bopUploads\\";
 
@@ -194,11 +199,14 @@ public class BopController extends AbstractController {
 
 	@RequestMapping(value = "/customer-data", method = RequestMethod.GET)
 	public ModelAndView showApplicationmainFormt(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam("tempId") int assessmentId) {
+			@RequestParam("tempId") int assessmentId, @RequestParam("bopNo") String bopNo) {
 		ModelAndView mv = new ModelAndView("bop/application-main-form");
 		Assessment assessment = assessmentService.get(assessmentId);
+		BOPWithBLOBs bop = new BOPWithBLOBs();
+		bop.setBopNo(bopNo);
 		BOPWrapper wrapper = new BOPWrapper();
 		wrapper.setAssessment(assessment);
+		wrapper.setBop(bop);
 		mv.addObject("bopWrapper", wrapper);
 
 		return mv;
@@ -229,6 +237,8 @@ public class BopController extends AbstractController {
 			assessmentService.update(ass);
 		}
 		BOPWithBLOBs bop = new BOPWithBLOBs();
+		bop.setIdbop(generatePrimaryKey());
+		bop.setBopNo(bopWrapper.getBop().getBopNo());
 		bop.setCustomerIdcustomer(customer.getIdcustomer());
 		bopservice.add(bop);
 
@@ -243,7 +253,7 @@ public class BopController extends AbstractController {
 
 		addSessionBop(bopAss, request.getSession());
 
-		ModelAndView mv = new ModelAndView("redirect:bop-application", "tempId", "null");
+		ModelAndView mv = new ModelAndView("redirect:bop-application", "tempId", bopWrapper.getBop().getBopNo());
 		return mv;
 	}
 
@@ -301,6 +311,24 @@ public class BopController extends AbstractController {
 	@RequestMapping(value = "/bop-form", method = RequestMethod.POST)
 	public ModelAndView processBopForm(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute BOPWrapper bopWrapper) {
+		BOPWithBLOBs bop=null;
+		bop=bopservice.viewByBopNo(bopWrapper.getBop().getBopNo());
+		if(bop!=null) {
+			bop.setBopApplayDate(new Date());
+			bop.setBopIsMarkonground(bopWrapper.getLandMarkComleted());
+			bop.setBopDiscription(bopWrapper.getLandType());
+			bop.setBopCompleteStatus(0);
+			bopservice.update(bop);
+			
+			String data[]=bopWrapper.getPerch().split(",");
+			for(String s:data) {
+				Area area=new Area();
+				area.setBopIdbop(bop.getIdbop());
+				area.setAreaPerchers(Double.parseDouble(s));
+				areaService.add(area);
+			}
+		}
+		
 		ModelAndView mv = new ModelAndView("bop/list");
 		// mv.addObject("user", new UserAccount());
 		return mv;

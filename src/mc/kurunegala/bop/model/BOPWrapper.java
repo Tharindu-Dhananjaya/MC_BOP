@@ -12,11 +12,13 @@ public class BOPWrapper {
 	private Assessment assessment;
 
 	private String perch;
+	private String landMarkComleted;
+	private String landType;
 
 	public BOPWithBLOBs getBop() {
 		if (bop == null)
 			bop = new BOPWithBLOBs();
-		
+
 		return bop;
 	}
 
@@ -70,6 +72,22 @@ public class BOPWrapper {
 
 	public void setAssessment(Assessment assessment) {
 		this.assessment = assessment;
+	}
+
+	public String getLandMarkComleted() {
+		return landMarkComleted;
+	}
+
+	public void setLandMarkComleted(String landMarkComleted) {
+		this.landMarkComleted = landMarkComleted;
+	}
+
+	public String getLandType() {
+		return landType;
+	}
+
+	public void setLandType(String landType) {
+		this.landType = landType;
 	}
 
 }
