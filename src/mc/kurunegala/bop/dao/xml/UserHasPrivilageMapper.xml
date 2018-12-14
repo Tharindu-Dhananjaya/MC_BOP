@@ -1,214 +1,280 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mc.kurunegala.bop.dao.UserHasPrivilageMapper">
-  <resultMap id="BaseResultMap" type="mc.kurunegala.bop.model.UserHasPrivilage">
-    <id column="idUser_has_Privilage" jdbcType="INTEGER" property="iduserHasPrivilage" />
-    <result column="User_idUser" jdbcType="INTEGER" property="userIduser" />
-    <result column="Privilage_idPrivilage" jdbcType="INTEGER" property="privilageIdprivilage" />
-    <result column="User_has_Privilage_status" jdbcType="INTEGER" property="userHasPrivilageStatus" />
-    <result column="User_has_Privilage_syn" jdbcType="INTEGER" property="userHasPrivilageSyn" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    idUser_has_Privilage, User_idUser, Privilage_idPrivilage, User_has_Privilage_status, 
-    User_has_Privilage_syn
-  </sql>
-  <select id="selectByExample" parameterType="mc.kurunegala.bop.model.UserHasPrivilageExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from user_has_privilage
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from user_has_privilage
-    where idUser_has_Privilage = #{iduserHasPrivilage,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user_has_privilage
-    where idUser_has_Privilage = #{iduserHasPrivilage,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="mc.kurunegala.bop.model.UserHasPrivilageExample">
-    delete from user_has_privilage
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="mc.kurunegala.bop.model.UserHasPrivilage">
-    insert into user_has_privilage (idUser_has_Privilage, User_idUser, Privilage_idPrivilage, 
-      User_has_Privilage_status, User_has_Privilage_syn
-      )
-    values (#{iduserHasPrivilage,jdbcType=INTEGER}, #{userIduser,jdbcType=INTEGER}, #{privilageIdprivilage,jdbcType=INTEGER}, 
-      #{userHasPrivilageStatus,jdbcType=INTEGER}, #{userHasPrivilageSyn,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="mc.kurunegala.bop.model.UserHasPrivilage">
-    insert into user_has_privilage
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="iduserHasPrivilage != null">
-        idUser_has_Privilage,
-      </if>
-      <if test="userIduser != null">
-        User_idUser,
-      </if>
-      <if test="privilageIdprivilage != null">
-        Privilage_idPrivilage,
-      </if>
-      <if test="userHasPrivilageStatus != null">
-        User_has_Privilage_status,
-      </if>
-      <if test="userHasPrivilageSyn != null">
-        User_has_Privilage_syn,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="iduserHasPrivilage != null">
-        #{iduserHasPrivilage,jdbcType=INTEGER},
-      </if>
-      <if test="userIduser != null">
-        #{userIduser,jdbcType=INTEGER},
-      </if>
-      <if test="privilageIdprivilage != null">
-        #{privilageIdprivilage,jdbcType=INTEGER},
-      </if>
-      <if test="userHasPrivilageStatus != null">
-        #{userHasPrivilageStatus,jdbcType=INTEGER},
-      </if>
-      <if test="userHasPrivilageSyn != null">
-        #{userHasPrivilageSyn,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="mc.kurunegala.bop.model.UserHasPrivilageExample" resultType="java.lang.Long">
-    select count(*) from user_has_privilage
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update user_has_privilage
-    <set>
-      <if test="record.iduserHasPrivilage != null">
-        idUser_has_Privilage = #{record.iduserHasPrivilage,jdbcType=INTEGER},
-      </if>
-      <if test="record.userIduser != null">
-        User_idUser = #{record.userIduser,jdbcType=INTEGER},
-      </if>
-      <if test="record.privilageIdprivilage != null">
-        Privilage_idPrivilage = #{record.privilageIdprivilage,jdbcType=INTEGER},
-      </if>
-      <if test="record.userHasPrivilageStatus != null">
-        User_has_Privilage_status = #{record.userHasPrivilageStatus,jdbcType=INTEGER},
-      </if>
-      <if test="record.userHasPrivilageSyn != null">
-        User_has_Privilage_syn = #{record.userHasPrivilageSyn,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update user_has_privilage
-    set idUser_has_Privilage = #{record.iduserHasPrivilage,jdbcType=INTEGER},
-      User_idUser = #{record.userIduser,jdbcType=INTEGER},
-      Privilage_idPrivilage = #{record.privilageIdprivilage,jdbcType=INTEGER},
-      User_has_Privilage_status = #{record.userHasPrivilageStatus,jdbcType=INTEGER},
-      User_has_Privilage_syn = #{record.userHasPrivilageSyn,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="mc.kurunegala.bop.model.UserHasPrivilage">
-    update user_has_privilage
-    <set>
-      <if test="userIduser != null">
-        User_idUser = #{userIduser,jdbcType=INTEGER},
-      </if>
-      <if test="privilageIdprivilage != null">
-        Privilage_idPrivilage = #{privilageIdprivilage,jdbcType=INTEGER},
-      </if>
-      <if test="userHasPrivilageStatus != null">
-        User_has_Privilage_status = #{userHasPrivilageStatus,jdbcType=INTEGER},
-      </if>
-      <if test="userHasPrivilageSyn != null">
-        User_has_Privilage_syn = #{userHasPrivilageSyn,jdbcType=INTEGER},
-      </if>
-    </set>
-    where idUser_has_Privilage = #{iduserHasPrivilage,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="mc.kurunegala.bop.model.UserHasPrivilage">
-    update user_has_privilage
-    set User_idUser = #{userIduser,jdbcType=INTEGER},
-      Privilage_idPrivilage = #{privilageIdprivilage,jdbcType=INTEGER},
-      User_has_Privilage_status = #{userHasPrivilageStatus,jdbcType=INTEGER},
-      User_has_Privilage_syn = #{userHasPrivilageSyn,jdbcType=INTEGER}
-    where idUser_has_Privilage = #{iduserHasPrivilage,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap"
+		type="mc.kurunegala.bop.model.UserHasPrivilage">
+		<id column="idUser_has_Privilage" jdbcType="INTEGER"
+			property="iduserHasPrivilage" />
+		<result column="User_idUser" jdbcType="INTEGER"
+			property="userIduser" />
+		<result column="Privilage_idPrivilage" jdbcType="INTEGER"
+			property="privilageIdprivilage" />
+		<result column="User_has_Privilage_status" jdbcType="INTEGER"
+			property="userHasPrivilageStatus" />
+		<result column="User_has_Privilage_syn" jdbcType="INTEGER"
+			property="userHasPrivilageSyn" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		idUser_has_Privilage, User_idUser, Privilage_idPrivilage,
+		User_has_Privilage_status,
+		User_has_Privilage_syn
+	</sql>
+	<select id="selectByExample"
+		parameterType="mc.kurunegala.bop.model.UserHasPrivilageExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from user_has_privilage
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_has_privilage
+		where idUser_has_Privilage =
+		#{iduserHasPrivilage,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from user_has_privilage
+		where idUser_has_Privilage
+		= #{iduserHasPrivilage,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="mc.kurunegala.bop.model.UserHasPrivilageExample">
+		delete from user_has_privilage
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="mc.kurunegala.bop.model.UserHasPrivilage">
+		insert into user_has_privilage (idUser_has_Privilage,
+		User_idUser,
+		Privilage_idPrivilage,
+		User_has_Privilage_status,
+		User_has_Privilage_syn
+		)
+		values (#{iduserHasPrivilage,jdbcType=INTEGER},
+		#{userIduser,jdbcType=INTEGER},
+		#{privilageIdprivilage,jdbcType=INTEGER},
+		#{userHasPrivilageStatus,jdbcType=INTEGER},
+		#{userHasPrivilageSyn,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="mc.kurunegala.bop.model.UserHasPrivilage">
+		insert into user_has_privilage
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iduserHasPrivilage != null">
+				idUser_has_Privilage,
+			</if>
+			<if test="userIduser != null">
+				User_idUser,
+			</if>
+			<if test="privilageIdprivilage != null">
+				Privilage_idPrivilage,
+			</if>
+			<if test="userHasPrivilageStatus != null">
+				User_has_Privilage_status,
+			</if>
+			<if test="userHasPrivilageSyn != null">
+				User_has_Privilage_syn,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iduserHasPrivilage != null">
+				#{iduserHasPrivilage,jdbcType=INTEGER},
+			</if>
+			<if test="userIduser != null">
+				#{userIduser,jdbcType=INTEGER},
+			</if>
+			<if test="privilageIdprivilage != null">
+				#{privilageIdprivilage,jdbcType=INTEGER},
+			</if>
+			<if test="userHasPrivilageStatus != null">
+				#{userHasPrivilageStatus,jdbcType=INTEGER},
+			</if>
+			<if test="userHasPrivilageSyn != null">
+				#{userHasPrivilageSyn,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="mc.kurunegala.bop.model.UserHasPrivilageExample"
+		resultType="java.lang.Long">
+		select count(*) from user_has_privilage
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update user_has_privilage
+		<set>
+			<if test="record.iduserHasPrivilage != null">
+				idUser_has_Privilage =
+				#{record.iduserHasPrivilage,jdbcType=INTEGER},
+			</if>
+			<if test="record.userIduser != null">
+				User_idUser = #{record.userIduser,jdbcType=INTEGER},
+			</if>
+			<if test="record.privilageIdprivilage != null">
+				Privilage_idPrivilage =
+				#{record.privilageIdprivilage,jdbcType=INTEGER},
+			</if>
+			<if test="record.userHasPrivilageStatus != null">
+				User_has_Privilage_status =
+				#{record.userHasPrivilageStatus,jdbcType=INTEGER},
+			</if>
+			<if test="record.userHasPrivilageSyn != null">
+				User_has_Privilage_syn =
+				#{record.userHasPrivilageSyn,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update user_has_privilage
+		set idUser_has_Privilage =
+		#{record.iduserHasPrivilage,jdbcType=INTEGER},
+		User_idUser =
+		#{record.userIduser,jdbcType=INTEGER},
+		Privilage_idPrivilage =
+		#{record.privilageIdprivilage,jdbcType=INTEGER},
+		User_has_Privilage_status =
+		#{record.userHasPrivilageStatus,jdbcType=INTEGER},
+		User_has_Privilage_syn =
+		#{record.userHasPrivilageSyn,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="mc.kurunegala.bop.model.UserHasPrivilage">
+		update user_has_privilage
+		<set>
+			<if test="userIduser != null">
+				User_idUser = #{userIduser,jdbcType=INTEGER},
+			</if>
+			<if test="privilageIdprivilage != null">
+				Privilage_idPrivilage =
+				#{privilageIdprivilage,jdbcType=INTEGER},
+			</if>
+			<if test="userHasPrivilageStatus != null">
+				User_has_Privilage_status =
+				#{userHasPrivilageStatus,jdbcType=INTEGER},
+			</if>
+			<if test="userHasPrivilageSyn != null">
+				User_has_Privilage_syn =
+				#{userHasPrivilageSyn,jdbcType=INTEGER},
+			</if>
+		</set>
+		where idUser_has_Privilage = #{iduserHasPrivilage,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="mc.kurunegala.bop.model.UserHasPrivilage">
+		update user_has_privilage
+		set User_idUser =
+		#{userIduser,jdbcType=INTEGER},
+		Privilage_idPrivilage =
+		#{privilageIdprivilage,jdbcType=INTEGER},
+		User_has_Privilage_status =
+		#{userHasPrivilageStatus,jdbcType=INTEGER},
+		User_has_Privilage_syn =
+		#{userHasPrivilageSyn,jdbcType=INTEGER}
+		where idUser_has_Privilage =
+		#{iduserHasPrivilage,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByUserId" resultMap="ResultMapWithPrivilage">
+		select * from
+		user_has_privilage where User_idUser=#{userId} and
+		User_has_Privilage_status=1
+	</select>
+
+	<resultMap id="ResultMapWithPrivilage"
+		extends="BaseResultMap"
+		type="mc.kurunegala.bop.model.UserHasPrivilage">
+		<association column="Privilage_idPrivilage"
+			property="privilage"
+			select="mc.kurunegala.bop.dao.PrivilageMapper.selectByPrimaryKey"
+			javaType="mc.kurunegala.bop.model.Privilage"></association>
+	</resultMap>
 </mapper>

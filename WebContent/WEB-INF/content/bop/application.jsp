@@ -31,7 +31,7 @@
 						<td>${data.customer.cusNic }</td>
 						<td><a
 							onclick="populateSelectedApplicationData(${data.idassessment},'${bopWrapper.bop.bopNo}');">select
-								${bopWrapper.bop.bopNo}</a></td>
+						</a></td>
 
 					</tr>
 				</c:forEach>
@@ -49,6 +49,9 @@
 		</table>
 	</div>
 
+	<div>
+		
+	</div>
 
 	<div id="applicationMainForm">
 
@@ -61,7 +64,7 @@
 
 			<form:form action="bop-form" modelAttribute="bopWrapper"
 				method="POST">
-				<form:hidden path="bop.bopNo" value="${bopWrapper.bop.bopNo}"/>
+				<form:hidden path="bop.bopNo" value="${bopWrapper.bop.bopNo}" />
 				<div class="form-group">
 					Area 1
 					<form:input type="text" path="perch" cssClass="form-control"
@@ -72,14 +75,16 @@
 					<div id="buildyourform"></div>
 				</div>
 				<input type="button" class="btn btn-sm btn-success" value="Add Ares"
-					class="add" id="addAddress" /><br/><br/>
+					class="add" id="addAddress" />
+				<br />
+				<br />
 					Land Mark Completed
-					<form:radiobutton path="landMarkComleted" value="YES"/>yes
-					<form:radiobutton path="landMarkComleted" value="NO"/>no
+					<form:radiobutton path="landMarkComleted" value="YES" />yes
+					<form:radiobutton path="landMarkComleted" value="NO" />no
 					<form:input type="text" path="landType" cssClass="form-control m-1"
-						 placeholder="Road,Forrest,Land,Recivations" />
-					<input type="submit" class="btn btn-success" value="Save Aplication Data"
-						class="add" id="addAddress" />
+					placeholder="Road,Forrest,Land,Recivations" />
+				<input type="submit" class="btn btn-success"
+					value="Save Aplication Data" class="add" id="addAddress" />
 			</form:form>
 
 		</div>

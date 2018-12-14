@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mc.kurunegala.bop.dao.DipartmentMapper">
+  <resultMap id="BaseResultMap" type="mc.kurunegala.bop.model.Dipartment">
+    <id column="idDipartment" jdbcType="INTEGER" property="iddipartment" />
+    <result column="dip_name" jdbcType="VARCHAR" property="dipName" />
+    <result column="dip_head" jdbcType="VARCHAR" property="dipHead" />
+    <result column="dip_status" jdbcType="INTEGER" property="dipStatus" />
+    <result column="dip_syn" jdbcType="INTEGER" property="dipSyn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    idDipartment, dip_name, dip_head, dip_status, dip_syn
+  </sql>
+  <select id="selectByExample" parameterType="mc.kurunegala.bop.model.DipartmentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dipartment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dipartment
+    where idDipartment = #{iddipartment,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dipartment
+    where idDipartment = #{iddipartment,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="mc.kurunegala.bop.model.DipartmentExample">
+    delete from dipartment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="mc.kurunegala.bop.model.Dipartment">
+    insert into dipartment (idDipartment, dip_name, dip_head, 
+      dip_status, dip_syn)
+    values (#{iddipartment,jdbcType=INTEGER}, #{dipName,jdbcType=VARCHAR}, #{dipHead,jdbcType=VARCHAR}, 
+      #{dipStatus,jdbcType=INTEGER}, #{dipSyn,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="mc.kurunegala.bop.model.Dipartment">
+    insert into dipartment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="iddipartment != null">
+        idDipartment,
+      </if>
+      <if test="dipName != null">
+        dip_name,
+      </if>
+      <if test="dipHead != null">
+        dip_head,
+      </if>
+      <if test="dipStatus != null">
+        dip_status,
+      </if>
+      <if test="dipSyn != null">
+        dip_syn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="iddipartment != null">
+        #{iddipartment,jdbcType=INTEGER},
+      </if>
+      <if test="dipName != null">
+        #{dipName,jdbcType=VARCHAR},
+      </if>
+      <if test="dipHead != null">
+        #{dipHead,jdbcType=VARCHAR},
+      </if>
+      <if test="dipStatus != null">
+        #{dipStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dipSyn != null">
+        #{dipSyn,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="mc.kurunegala.bop.model.DipartmentExample" resultType="java.lang.Long">
+    select count(*) from dipartment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dipartment
+    <set>
+      <if test="record.iddipartment != null">
+        idDipartment = #{record.iddipartment,jdbcType=INTEGER},
+      </if>
+      <if test="record.dipName != null">
+        dip_name = #{record.dipName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dipHead != null">
+        dip_head = #{record.dipHead,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dipStatus != null">
+        dip_status = #{record.dipStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.dipSyn != null">
+        dip_syn = #{record.dipSyn,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dipartment
+    set idDipartment = #{record.iddipartment,jdbcType=INTEGER},
+      dip_name = #{record.dipName,jdbcType=VARCHAR},
+      dip_head = #{record.dipHead,jdbcType=VARCHAR},
+      dip_status = #{record.dipStatus,jdbcType=INTEGER},
+      dip_syn = #{record.dipSyn,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="mc.kurunegala.bop.model.Dipartment">
+    update dipartment
+    <set>
+      <if test="dipName != null">
+        dip_name = #{dipName,jdbcType=VARCHAR},
+      </if>
+      <if test="dipHead != null">
+        dip_head = #{dipHead,jdbcType=VARCHAR},
+      </if>
+      <if test="dipStatus != null">
+        dip_status = #{dipStatus,jdbcType=INTEGER},
+      </if>
+      <if test="dipSyn != null">
+        dip_syn = #{dipSyn,jdbcType=INTEGER},
+      </if>
+    </set>
+    where idDipartment = #{iddipartment,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="mc.kurunegala.bop.model.Dipartment">
+    update dipartment
+    set dip_name = #{dipName,jdbcType=VARCHAR},
+      dip_head = #{dipHead,jdbcType=VARCHAR},
+      dip_status = #{dipStatus,jdbcType=INTEGER},
+      dip_syn = #{dipSyn,jdbcType=INTEGER}
+    where idDipartment = #{iddipartment,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -18,8 +18,26 @@
 		<mapper resource="mc/kurunegala/bop/dao/xml/UploadsMapper.xml" />
 		<mapper resource="mc/kurunegala/bop/dao/xml/DoccatMapper.xml" />
 		<mapper resource="mc/kurunegala/bop/dao/xml/UserMapper.xml" />
-		<mapper resource="mc/kurunegala/bop/dao/xml/UserLoginMapper.xml" />
+		<mapper
+			resource="mc/kurunegala/bop/dao/xml/UserLoginMapper.xml" />
 		<mapper resource="mc/kurunegala/bop/dao/xml/AreaMapper.xml" />
+		<mapper
+			resource="mc/kurunegala/bop/dao/xml/UserHasPrivilageMapper.xml" />
+			<mapper
+			resource="mc/kurunegala/bop/dao/xml/PrivilageMapper.xml" />
+			
+			<mapper
+			resource="mc/kurunegala/bop/dao/xml/DipartmentMapper.xml" />
+			<mapper
+			resource="mc/kurunegala/bop/dao/xml/UserHasApprovalCatMapper.xml" />
+			<mapper
+			resource="mc/kurunegala/bop/dao/xml/SendToApproveMapper.xml" />
+			<mapper
+			resource="mc/kurunegala/bop/dao/xml/ApprovalByMapper.xml" />
+			<mapper
+			resource="mc/kurunegala/bop/dao/xml/ApproveDetailsMapper.xml" />
+			<mapper
+			resource="mc/kurunegala/bop/dao/xml/UserHasApplicationCatagoryMapper.xml" />
 
 
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
-	<classPathEntry location="E:\Projects\Valueyou\lib\mysql-connector-java-5.1.30.jar" />
+	<classPathEntry
+		location="E:\Projects\Valueyou\lib\mysql-connector-java-5.1.30.jar" />
 	<context id="ctx" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<property name="suppressAllComments" value="true" />
@@ -8,43 +9,54 @@
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 			connectionURL="jdbc:mysql://localhost:3306/ultimate2" userId="root"
 			password="root" />
-		<javaModelGenerator targetPackage="mc.kurunegala.bop.model"
-			targetProject="mcBOP">
+		<javaModelGenerator
+			targetPackage="mc.kurunegala.bop.model" targetProject="mcBOP">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
-		<sqlMapGenerator targetPackage="mc.kurunegala.bop.dao.xml"
-			targetProject="mcBOP">
+		<sqlMapGenerator
+			targetPackage="mc.kurunegala.bop.dao.xml" targetProject="mcBOP">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
-		<javaClientGenerator targetPackage="mc.kurunegala.bop.dao"
-			targetProject="mcBOP" type="XMLMAPPER">
+		<javaClientGenerator
+			targetPackage="mc.kurunegala.bop.dao" targetProject="mcBOP"
+			type="XMLMAPPER">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-<!-- 		<table tableName="Assessment" domainObjectName="Assessment" />
-		<table tableName="Customer" domainObjectName="Customer" />
-		<table tableName="Ward" domainObjectName="Ward" />
-		<table tableName="Street" domainObjectName="Street" />
-		<table tableName="ass_nature" domainObjectName="AssNature" />
-		<table tableName="ass_discription" domainObjectName="AssDiscription" />
-		<table tableName="User" domainObjectName="User" />
-		<table tableName="User_Login" domainObjectName="UserLogin" />
-		<table tableName="User_has_Privilage" domainObjectName="UserHasPrivilage" />
-		<table tableName="Privilage" domainObjectName="Privilage" />
-		<table tableName="User_has_Dipartment" domainObjectName="" />
-		<table tableName="Approval_cat" domainObjectName="ApprovalCat" />
-		<table tableName="Area" domainObjectName="Area" />
-		<table tableName="Doccat" domainObjectName="Doccat" />
-		<table tableName="BOP" domainObjectName="BOP" />
-		<table tableName="Uploads" domainObjectName="Uploads" />
-		<table tableName="Application_Catagory" domainObjectName="ApplicationCatagory" />
-		<table tableName="NeedDoc" domainObjectName="NeedDoc" />
-		<table tableName="bop_has_assessment" domainObjectName="BopHasAssessment" />
+		<!-- <table tableName="Assessment" domainObjectName="Assessment" /> <table 
+			tableName="Customer" domainObjectName="Customer" /> <table tableName="Ward" 
+			domainObjectName="Ward" /> <table tableName="Street" domainObjectName="Street" 
+			/> <table tableName="ass_nature" domainObjectName="AssNature" /> <table tableName="ass_discription" 
+			domainObjectName="AssDiscription" /> <table tableName="User" domainObjectName="User" 
+			/> <table tableName="User_Login" domainObjectName="UserLogin" /> <table tableName="User_has_Privilage" 
+			domainObjectName="UserHasPrivilage" /> <table tableName="Privilage" domainObjectName="Privilage" 
+			/> <table tableName="User_has_Dipartment" domainObjectName="" /> <table tableName="Approval_cat" 
+			domainObjectName="ApprovalCat" /> <table tableName="Area" domainObjectName="Area" 
+			/> <table tableName="Doccat" domainObjectName="Doccat" /> <table tableName="BOP" 
+			domainObjectName="BOP" /> <table tableName="Uploads" domainObjectName="Uploads" 
+			/> <table tableName="Application_Catagory" domainObjectName="ApplicationCatagory" 
+			/> <table tableName="NeedDoc" domainObjectName="NeedDoc" /> <table tableName="bop_has_assessment" 
+			domainObjectName="BopHasAssessment" /> -->
+
+		<!-- <table tableName="" domainObjectName="" /> -->
+
+
+
+
+
+	<!-- 	<table tableName="dipartment" domainObjectName="Dipartment" />
+		<table tableName="user_has_approval_cat" domainObjectName="UserHasApprovalCat" />
+		
+		<table tableName="send_to_approve" domainObjectName="SendToApprove" />
+		<table tableName="approval_by" domainObjectName="ApprovalBy" />
+		<table tableName="approve_details" domainObjectName="ApproveDetails" />
+		
+<table tableName="user_has_application_catagory"
+			domainObjectName="UserHasApplicationCatagory" />
 		 -->
-		
-		
-		
+
+
 
 	</context>
 </generatorConfiguration>

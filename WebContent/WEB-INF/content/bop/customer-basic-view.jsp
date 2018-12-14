@@ -24,4 +24,13 @@
 	<div>Address Line 2 : ${assessment.customer.cusAddressL2}</div>
 	<div>Address Line 3 : ${assessment.customer.cusAddressL3}</div>
 </div>
-<div class="col-md-6  p-2">##</div>
+<div class="col-md-6  p-2">
+	<c:if test="${not empty bop.uploads}">
+		<c:forEach items="${bop.uploads}" var="upload">
+
+
+			<img src="${upload.uploadsPath}" class="rounded-circle " id="pimg"
+				width="70px" height="70px">
+		</c:forEach>
+	</c:if>
+</div>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="mc.kurunegala.bop.dao.UserHasApprovalCatMapper">
+	<resultMap id="BaseResultMap"
+		type="mc.kurunegala.bop.model.UserHasApprovalCat">
+		<id column="idUser_has_Approval_cat" jdbcType="INTEGER"
+			property="iduserHasApprovalCat" />
+		<result column="User_idUser" jdbcType="INTEGER"
+			property="userIduser" />
+		<result column="Approval_cat_idApproval_cat" jdbcType="INTEGER"
+			property="approvalCatIdapprovalCat" />
+		<result column="dip_status" jdbcType="INTEGER"
+			property="dipStatus" />
+		<result column="dip_syn" jdbcType="INTEGER" property="dipSyn" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		idUser_has_Approval_cat, User_idUser,
+		Approval_cat_idApproval_cat, dip_status, dip_syn
+	</sql>
+	<select id="selectByExample"
+		parameterType="mc.kurunegala.bop.model.UserHasApprovalCatExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from user_has_approval_cat
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_has_approval_cat
+		where idUser_has_Approval_cat =
+		#{iduserHasApprovalCat,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from user_has_approval_cat
+		where
+		idUser_has_Approval_cat = #{iduserHasApprovalCat,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="mc.kurunegala.bop.model.UserHasApprovalCatExample">
+		delete from user_has_approval_cat
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="mc.kurunegala.bop.model.UserHasApprovalCat">
+		insert into user_has_approval_cat
+		(idUser_has_Approval_cat, User_idUser,
+		Approval_cat_idApproval_cat,
+		dip_status, dip_syn
+		)
+		values (#{iduserHasApprovalCat,jdbcType=INTEGER},
+		#{userIduser,jdbcType=INTEGER},
+		#{approvalCatIdapprovalCat,jdbcType=INTEGER},
+		#{dipStatus,jdbcType=INTEGER}, #{dipSyn,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="mc.kurunegala.bop.model.UserHasApprovalCat">
+		insert into user_has_approval_cat
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iduserHasApprovalCat != null">
+				idUser_has_Approval_cat,
+			</if>
+			<if test="userIduser != null">
+				User_idUser,
+			</if>
+			<if test="approvalCatIdapprovalCat != null">
+				Approval_cat_idApproval_cat,
+			</if>
+			<if test="dipStatus != null">
+				dip_status,
+			</if>
+			<if test="dipSyn != null">
+				dip_syn,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iduserHasApprovalCat != null">
+				#{iduserHasApprovalCat,jdbcType=INTEGER},
+			</if>
+			<if test="userIduser != null">
+				#{userIduser,jdbcType=INTEGER},
+			</if>
+			<if test="approvalCatIdapprovalCat != null">
+				#{approvalCatIdapprovalCat,jdbcType=INTEGER},
+			</if>
+			<if test="dipStatus != null">
+				#{dipStatus,jdbcType=INTEGER},
+			</if>
+			<if test="dipSyn != null">
+				#{dipSyn,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="mc.kurunegala.bop.model.UserHasApprovalCatExample"
+		resultType="java.lang.Long">
+		select count(*) from user_has_approval_cat
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update user_has_approval_cat
+		<set>
+			<if test="record.iduserHasApprovalCat != null">
+				idUser_has_Approval_cat =
+				#{record.iduserHasApprovalCat,jdbcType=INTEGER},
+			</if>
+			<if test="record.userIduser != null">
+				User_idUser = #{record.userIduser,jdbcType=INTEGER},
+			</if>
+			<if test="record.approvalCatIdapprovalCat != null">
+				Approval_cat_idApproval_cat =
+				#{record.approvalCatIdapprovalCat,jdbcType=INTEGER},
+			</if>
+			<if test="record.dipStatus != null">
+				dip_status = #{record.dipStatus,jdbcType=INTEGER},
+			</if>
+			<if test="record.dipSyn != null">
+				dip_syn = #{record.dipSyn,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update user_has_approval_cat
+		set idUser_has_Approval_cat =
+		#{record.iduserHasApprovalCat,jdbcType=INTEGER},
+		User_idUser =
+		#{record.userIduser,jdbcType=INTEGER},
+		Approval_cat_idApproval_cat =
+		#{record.approvalCatIdapprovalCat,jdbcType=INTEGER},
+		dip_status =
+		#{record.dipStatus,jdbcType=INTEGER},
+		dip_syn =
+		#{record.dipSyn,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="mc.kurunegala.bop.model.UserHasApprovalCat">
+		update user_has_approval_cat
+		<set>
+			<if test="userIduser != null">
+				User_idUser = #{userIduser,jdbcType=INTEGER},
+			</if>
+			<if test="approvalCatIdapprovalCat != null">
+				Approval_cat_idApproval_cat =
+				#{approvalCatIdapprovalCat,jdbcType=INTEGER},
+			</if>
+			<if test="dipStatus != null">
+				dip_status = #{dipStatus,jdbcType=INTEGER},
+			</if>
+			<if test="dipSyn != null">
+				dip_syn = #{dipSyn,jdbcType=INTEGER},
+			</if>
+		</set>
+		where idUser_has_Approval_cat =
+		#{iduserHasApprovalCat,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="mc.kurunegala.bop.model.UserHasApprovalCat">
+		update user_has_approval_cat
+		set User_idUser =
+		#{userIduser,jdbcType=INTEGER},
+		Approval_cat_idApproval_cat =
+		#{approvalCatIdapprovalCat,jdbcType=INTEGER},
+		dip_status =
+		#{dipStatus,jdbcType=INTEGER},
+		dip_syn = #{dipSyn,jdbcType=INTEGER}
+		where idUser_has_Approval_cat =
+		#{iduserHasApprovalCat,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByUserId" resultMap="ResultMapWithAprovalCat">
+		select * from
+		user_has_approval_cat where User_idUser=#{userId}
+	</select>
+
+	<resultMap id="ResultMapWithAprovalCat"
+		extends="BaseResultMap"
+		type="mc.kurunegala.bop.model.UserHasApprovalCat">
+		<association column="Approval_cat_idApproval_cat"
+			property="approvalCat" javaType="mc.kurunegala.bop.model.ApprovalCat"
+			select="mc.kurunegala.bop.dao.ApprovalCatMapper.selectByPrimaryKey"></association>
+	</resultMap>
+</mapper>
