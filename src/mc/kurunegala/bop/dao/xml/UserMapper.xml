@@ -368,11 +368,11 @@
 			ofType="mc.kurunegala.bop.model.UserHasPrivilage"
 			select="mc.kurunegala.bop.dao.UserHasPrivilageMapper.selectByUserId"></collection>
 
-		<!-- <collection column="idUser" property="userHasDipartment"
+		<!--  <collection column="idUser" property="userHasDipartment"
 			javaType="ArrayList"
 			ofType="mc.kurunegala.bop.model.UserHasDipartment"
-			select="mc.kurunegala.bop.dao.UserHasDipartmentMapper.selectByUserId"></collection> -->
-
+			select="mc.kurunegala.bop.dao.UserHasDipartmentMapper.selectByUserId"></collection> 
+ -->
 		<!-- <collection column="idUser" property="userHasApprovalCat"
 			javaType="ArrayList"
 			ofType="mc.kurunegala.bop.model.UserHasApprovalCat"
