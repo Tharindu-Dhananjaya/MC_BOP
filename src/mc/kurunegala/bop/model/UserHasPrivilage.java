@@ -50,14 +50,4 @@ public class UserHasPrivilage {
     public void setUserHasPrivilageSyn(Integer userHasPrivilageSyn) {
         this.userHasPrivilageSyn = userHasPrivilageSyn;
     }
-    
-    public Privilage getPrivilage() {
-		return privilage;
-	}
-
-	public void setPrivilage(Privilage privilage) {
-		this.privilage = privilage;
-	}
-
-	private Privilage privilage;
 }

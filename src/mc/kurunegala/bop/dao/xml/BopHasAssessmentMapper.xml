@@ -228,11 +228,6 @@
 		resultMap="ResultMapWithBopAndAssessmet">
 		select * from bop_has_assessment where BOP_has_Assessment_status=#{state}
 	</select>
-	
-	<select id="selectByBopId"
-		resultMap="ResultMapWithBopAndAssessmet">
-		select * from bop_has_assessment where BOP_idBOP=#{id}
-	</select>
 
 	<resultMap extends="BaseResultMap"
 		id="ResultMapWithBopAndAssessmet"

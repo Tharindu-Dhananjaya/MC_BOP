@@ -25,7 +25,7 @@
 						<form:input path="assessment.customer.idcustomer" type="hidden" />
 
 						<form:input path="assessment.customer.cusNic" type="text"
-							cssClass="form-control" id="custNic" placeholder="NIC" readonly="true"/>
+							cssClass="form-control" id="custNic" placeholder="NIC" />
 						<form:errors path="assessment.customer.cusNic" cssClass="error" />
 					</div>
 					<div class="form-group">
@@ -71,16 +71,6 @@
 						Data</button>
 					<%-- </c:if> --%>
 				</form:form>
-			</div>
-			<div class="col-md-6">
-				<c:if test="${not empty uploads}">
-					<c:forEach items="${uploads}" var="upload">
-
-
-						<img src="${upload.uploadsPath}" class="rounded-circle " id="pimg"
-							width="70px" height="70px">
-					</c:forEach>
-				</c:if>
 			</div>
 
 
