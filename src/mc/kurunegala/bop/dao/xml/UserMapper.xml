@@ -3,6 +3,7 @@
 <mapper namespace="mc.kurunegala.bop.dao.UserMapper">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<resultMap id="BaseResultMap"
 		type="mc.kurunegala.bop.model.User">
 		<id column="idUser" jdbcType="INTEGER" property="iduser" />
@@ -385,6 +386,8 @@
 =======
 =======
 >>>>>>> parent of 7c1699b... privilages to be continue
+=======
+>>>>>>> parent of 7c1699b... privilages to be continue
   <resultMap id="BaseResultMap" type="mc.kurunegala.bop.model.User">
     <id column="idUser" jdbcType="INTEGER" property="iduser" />
     <result column="user_full_name" jdbcType="VARCHAR" property="userFullName" />
@@ -688,6 +691,9 @@
     where idUser = #{iduser,jdbcType=INTEGER}
   </update>
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 7c1699b... privilages to be continue
+=======
 >>>>>>> parent of 7c1699b... privilages to be continue
 =======
 >>>>>>> parent of 7c1699b... privilages to be continue
