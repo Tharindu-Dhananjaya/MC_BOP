@@ -6,7 +6,7 @@ import mc.kurunegala.bop.model.BopHasAssessmentExample;
 import org.apache.ibatis.annotations.Param;
 
 public interface BopHasAssessmentMapper {
-	long countByExample(BopHasAssessmentExample example);
+    long countByExample(BopHasAssessmentExample example);
 
 	int deleteByExample(BopHasAssessmentExample example);
 
@@ -29,7 +29,7 @@ public interface BopHasAssessmentMapper {
 
 	int updateByPrimaryKey(BopHasAssessment record);
 
-	List<BopHasAssessment> selectByBopId(int id);
+
 
 	List<BopHasAssessment> selectByState(int state);
 }

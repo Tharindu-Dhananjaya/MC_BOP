@@ -30,5 +30,7 @@ public interface UserMapper {
 
 	int updateByPrimaryKey(User record);
 
+	@ResultMap("BaseResultMap")
+	@Select("select * from user where user_username=#{un} and user_password=#{pw} and user_status=1")
 	User viewForLogin(@Param("un") String userName, @Param("pw") String password);
 }

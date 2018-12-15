@@ -27,6 +27,4 @@ public interface AreaMapper {
     int updateByPrimaryKeySelective(Area record);
 
     int updateByPrimaryKey(Area record);
-    
-    List<Area> selectByBopId(String bopId);
 }
