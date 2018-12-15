@@ -1,181 +1,232 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mc.kurunegala.bop.dao.UserHasDipartmentMapper">
-  <resultMap id="BaseResultMap" type="mc.kurunegala.bop.model.UserHasDipartment">
-    <id column="idUser_has_department" jdbcType="INTEGER" property="iduserHasDepartment" />
-    <result column="User_idUser" jdbcType="INTEGER" property="userIduser" />
-    <result column="Dipartment_idDipartment" jdbcType="INTEGER" property="dipartmentIddipartment" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    idUser_has_department, User_idUser, Dipartment_idDipartment
-  </sql>
-  <select id="selectByExample" parameterType="mc.kurunegala.bop.model.UserHasDipartmentExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from user_has_dipartment
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from user_has_dipartment
-    where idUser_has_department = #{iduserHasDepartment,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user_has_dipartment
-    where idUser_has_department = #{iduserHasDepartment,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="mc.kurunegala.bop.model.UserHasDipartmentExample">
-    delete from user_has_dipartment
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="mc.kurunegala.bop.model.UserHasDipartment">
-    insert into user_has_dipartment (idUser_has_department, User_idUser, 
-      Dipartment_idDipartment)
-    values (#{iduserHasDepartment,jdbcType=INTEGER}, #{userIduser,jdbcType=INTEGER}, 
-      #{dipartmentIddipartment,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="mc.kurunegala.bop.model.UserHasDipartment">
-    insert into user_has_dipartment
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="iduserHasDepartment != null">
-        idUser_has_department,
-      </if>
-      <if test="userIduser != null">
-        User_idUser,
-      </if>
-      <if test="dipartmentIddipartment != null">
-        Dipartment_idDipartment,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="iduserHasDepartment != null">
-        #{iduserHasDepartment,jdbcType=INTEGER},
-      </if>
-      <if test="userIduser != null">
-        #{userIduser,jdbcType=INTEGER},
-      </if>
-      <if test="dipartmentIddipartment != null">
-        #{dipartmentIddipartment,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="mc.kurunegala.bop.model.UserHasDipartmentExample" resultType="java.lang.Long">
-    select count(*) from user_has_dipartment
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update user_has_dipartment
-    <set>
-      <if test="record.iduserHasDepartment != null">
-        idUser_has_department = #{record.iduserHasDepartment,jdbcType=INTEGER},
-      </if>
-      <if test="record.userIduser != null">
-        User_idUser = #{record.userIduser,jdbcType=INTEGER},
-      </if>
-      <if test="record.dipartmentIddipartment != null">
-        Dipartment_idDipartment = #{record.dipartmentIddipartment,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update user_has_dipartment
-    set idUser_has_department = #{record.iduserHasDepartment,jdbcType=INTEGER},
-      User_idUser = #{record.userIduser,jdbcType=INTEGER},
-      Dipartment_idDipartment = #{record.dipartmentIddipartment,jdbcType=INTEGER}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="mc.kurunegala.bop.model.UserHasDipartment">
-    update user_has_dipartment
-    <set>
-      <if test="userIduser != null">
-        User_idUser = #{userIduser,jdbcType=INTEGER},
-      </if>
-      <if test="dipartmentIddipartment != null">
-        Dipartment_idDipartment = #{dipartmentIddipartment,jdbcType=INTEGER},
-      </if>
-    </set>
-    where idUser_has_department = #{iduserHasDepartment,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="mc.kurunegala.bop.model.UserHasDipartment">
-    update user_has_dipartment
-    set User_idUser = #{userIduser,jdbcType=INTEGER},
-      Dipartment_idDipartment = #{dipartmentIddipartment,jdbcType=INTEGER}
-    where idUser_has_department = #{iduserHasDepartment,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap"
+		type="mc.kurunegala.bop.model.UserHasDipartment">
+		<id column="idUser_has_department" jdbcType="INTEGER"
+			property="iduserHasDepartment" />
+		<result column="User_idUser" jdbcType="INTEGER"
+			property="userIduser" />
+		<result column="Dipartment_idDipartment" jdbcType="INTEGER"
+			property="dipartmentIddipartment" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		idUser_has_department, User_idUser, Dipartment_idDipartment
+	</sql>
+	<select id="selectByExample"
+		parameterType="mc.kurunegala.bop.model.UserHasDipartmentExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from user_has_dipartment
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_has_dipartment
+		where idUser_has_department =
+		#{iduserHasDepartment,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from user_has_dipartment
+		where
+		idUser_has_department = #{iduserHasDepartment,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="mc.kurunegala.bop.model.UserHasDipartmentExample">
+		delete from user_has_dipartment
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="mc.kurunegala.bop.model.UserHasDipartment">
+		insert into user_has_dipartment (idUser_has_department,
+		User_idUser,
+		Dipartment_idDipartment)
+		values
+		(#{iduserHasDepartment,jdbcType=INTEGER},
+		#{userIduser,jdbcType=INTEGER},
+		#{dipartmentIddipartment,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="mc.kurunegala.bop.model.UserHasDipartment">
+		insert into user_has_dipartment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iduserHasDepartment != null">
+				idUser_has_department,
+			</if>
+			<if test="userIduser != null">
+				User_idUser,
+			</if>
+			<if test="dipartmentIddipartment != null">
+				Dipartment_idDipartment,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iduserHasDepartment != null">
+				#{iduserHasDepartment,jdbcType=INTEGER},
+			</if>
+			<if test="userIduser != null">
+				#{userIduser,jdbcType=INTEGER},
+			</if>
+			<if test="dipartmentIddipartment != null">
+				#{dipartmentIddipartment,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="mc.kurunegala.bop.model.UserHasDipartmentExample"
+		resultType="java.lang.Long">
+		select count(*) from user_has_dipartment
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update user_has_dipartment
+		<set>
+			<if test="record.iduserHasDepartment != null">
+				idUser_has_department =
+				#{record.iduserHasDepartment,jdbcType=INTEGER},
+			</if>
+			<if test="record.userIduser != null">
+				User_idUser = #{record.userIduser,jdbcType=INTEGER},
+			</if>
+			<if test="record.dipartmentIddipartment != null">
+				Dipartment_idDipartment =
+				#{record.dipartmentIddipartment,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update user_has_dipartment
+		set idUser_has_department =
+		#{record.iduserHasDepartment,jdbcType=INTEGER},
+		User_idUser =
+		#{record.userIduser,jdbcType=INTEGER},
+		Dipartment_idDipartment =
+		#{record.dipartmentIddipartment,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="mc.kurunegala.bop.model.UserHasDipartment">
+		update user_has_dipartment
+		<set>
+			<if test="userIduser != null">
+				User_idUser = #{userIduser,jdbcType=INTEGER},
+			</if>
+			<if test="dipartmentIddipartment != null">
+				Dipartment_idDipartment =
+				#{dipartmentIddipartment,jdbcType=INTEGER},
+			</if>
+		</set>
+		where idUser_has_department = #{iduserHasDepartment,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="mc.kurunegala.bop.model.UserHasDipartment">
+		update user_has_dipartment
+		set User_idUser =
+		#{userIduser,jdbcType=INTEGER},
+		Dipartment_idDipartment =
+		#{dipartmentIddipartment,jdbcType=INTEGER}
+		where idUser_has_department
+		= #{iduserHasDepartment,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByUserId" resultMap="ResultMapWithDipartment">
+		select * from
+		user_has_dipartment where User_idUser==#{userId}
+	</select>
+
+	<resultMap id="ResultMapWithDipartment"
+		extends="BaseResultMap"
+		type="mc.kurunegala.bop.model.UserHasDipartment">
+		<association column="Dipartment_idDipartment"
+			property="dipartment"
+			select="mc.kurunegala.bop.dao.DipartmentMapper.selectByPrimaryKey"
+			javaType="mc.kurunegala.bop.model.Dipartment"></association>
+	</resultMap>
 </mapper>

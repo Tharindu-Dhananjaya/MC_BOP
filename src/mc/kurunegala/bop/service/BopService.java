@@ -1,5 +1,7 @@
 package mc.kurunegala.bop.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,18 @@ public class BopService {
 
 	public void update(BOPWithBLOBs bop) {
 		mapper.updateByPrimaryKeySelective(bop);
+	}
+
+	public BOPWithBLOBs get(Integer bopIdbop) {
+		return mapper.selectByPrimaryKey(bopIdbop);
+	}
+
+	public List<BOPWithBLOBs> viewByState(int state) {
+		return mapper.selectByState(state);
+	}
+
+	public BOPWithBLOBs viewByBopId(Integer bopIdbop) {
+		return mapper.selectByPrimaryKeyWithExtra(bopIdbop);
 	}
 
 }

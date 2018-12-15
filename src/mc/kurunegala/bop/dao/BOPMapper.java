@@ -42,4 +42,9 @@ public interface BOPMapper {
 	@Select("select * from bop where BOP_no=#{bopNo}")
 	@ResultMap("ResultMapWithBLOBs")
 	BOPWithBLOBs selectByBopNo(String bopNo);
+
+	List<BOPWithBLOBs> selectByState(int state);
+	
+	BOPWithBLOBs selectByPrimaryKeyWithExtra(Integer idbop);
+
 }

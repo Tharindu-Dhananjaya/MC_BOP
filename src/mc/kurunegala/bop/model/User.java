@@ -1,6 +1,7 @@
 package mc.kurunegala.bop.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private Integer iduser;
@@ -112,4 +113,32 @@ public class User {
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword == null ? null : userPassword.trim();
     }
-}
+    
+    public List<UserHasPrivilage> getUserHasPrivilage() {
+		return userHasPrivilage;
+	}
+
+	public void setUserHasPrivilage(List<UserHasPrivilage> userHasPrivilage) {
+		this.userHasPrivilage = userHasPrivilage;
+	}
+
+	public List<UserHasDipartment> getUserHasDipartmen() {
+		return userHasDipartment;
+	}
+
+	public void setUserHasDipartmen(List<UserHasDipartment> userHasDipartmen) {
+		this.userHasDipartment = userHasDipartmen;
+	}
+
+	public List<UserHasApprovalCat> getUserHasApprovalCat() {
+		return userHasApprovalCat;
+	}
+
+	public void setUserHasApprovalCat(List<UserHasApprovalCat> userHasApprovalCat) {
+		this.userHasApprovalCat = userHasApprovalCat;
+	}
+
+	private List<UserHasPrivilage> userHasPrivilage;
+	private List<UserHasDipartment> userHasDipartment;
+	private List<UserHasApprovalCat> userHasApprovalCat;
+ }

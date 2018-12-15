@@ -27,4 +27,6 @@ public interface UserHasPrivilageMapper {
     int updateByPrimaryKeySelective(UserHasPrivilage record);
 
     int updateByPrimaryKey(UserHasPrivilage record);
+    
+    List<UserHasPrivilage> selectByUserId(int userId);
 }
