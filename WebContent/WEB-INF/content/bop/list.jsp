@@ -14,21 +14,30 @@
 			<thead class="thead-light">
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">BOP No</th>
+					<th scope="col">First Name</th>
+					<th scope="col">Last Name</th>
 					<th scope="col">Username</th>
-					<th scope="col">Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${bops }" var="bop">
-					<tr>
-						<th scope="row"></th>
-						<td>${bop.bopNo }</td>
-						<td>${bop.customer.cusName }</td>
-						<td><a href="bop-view?tempId=${bop.idbop}"> view</a></td>
-					</tr>
-				</c:forEach>
-
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

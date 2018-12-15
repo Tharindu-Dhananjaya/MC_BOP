@@ -100,9 +100,6 @@ public class LoginController extends AbstractController {
 		userLoginService.update(log);
 
 		removeSessionUser(session);
-		removeSessionAssessment(session);
-		removeSessionBop(session);
-		removeSessionAssessmentWrapper(session);
 		ModelAndView mv = new ModelAndView("login/login");
 		mv.addObject("user", new User());
 		return mv;

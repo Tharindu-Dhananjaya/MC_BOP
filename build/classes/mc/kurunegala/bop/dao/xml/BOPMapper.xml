@@ -488,41 +488,4 @@
 	<select id="viewMaxBopNo" resultType="java.lang.String">
 		select max(BOP_no) from bop
 	</select>
-	<select id="selectByState" resultMap="ResultmapWithExtra">
-		select* from bop where
-		BOP_complete_status=#{state}
-	</select>
-
-	<resultMap id="ResultmapWithExtra"
-		extends="ResultMapWithBLOBs"
-		type="mc.kurunegala.bop.model.BOPWithBLOBs">
-
-		<association column="Customer_idCustomer"
-			property="customer" javaType="mc.kurunegala.bop.model.Customer"
-			select="mc.kurunegala.bop.dao.CustomerMapper.selectByPrimaryKey" />
-
-		<collection column="idBOP" property="uploads"
-			javaType="ArrayList" ofType="mc.kurunegala.bop.model.Uploads"
-			select="mc.kurunegala.bop.dao.UploadsMapper.selectByBopId" />
-
-		<collection column="idBOP" property="bopHasAssessment"
-			javaType="ArrayList"
-			ofType="mc.kurunegala.bop.model.BopHasAssessment"
-			select="mc.kurunegala.bop.dao.BopHasAssessmentMapper.selectByBopId" />
-
-		<collection column="idBOP" property="areas"
-			javaType="ArrayList" ofType="mc.kurunegala.bop.model.Area"
-			select="mc.kurunegala.bop.dao.AreaMapper.selectByBopId" />
-
-	</resultMap>
-
-	<select id="selectByPrimaryKeyWithExtra"
-		parameterType="java.lang.Integer" resultMap="ResultmapWithExtra">
-		select
-		<include refid="Base_Column_List" />
-		,
-		<include refid="Blob_Column_List" />
-		from bop
-		where idBOP = #{idbop,jdbcType=INTEGER}
-	</select>
 </mapper>

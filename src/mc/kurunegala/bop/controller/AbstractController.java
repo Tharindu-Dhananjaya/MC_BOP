@@ -55,43 +55,24 @@ public class AbstractController {
 		session.setAttribute("User", user);
 	}
 
-	public void removeSessionUser(HttpSession session) {
-		session.removeAttribute("User");
-	}
-
 	public void addSessionAssessmentWrapper(AssessmentWrapper wrapper, HttpSession session) {
 		session.setAttribute("AssWrapper", wrapper);
-	}
-
-	public void removeSessionAssessmentWrapper(HttpSession session) {
-		session.removeAttribute("AssWrapper");
 	}
 
 	public void addSessionBop(BopHasAssessment bop, HttpSession session) {
 		session.setAttribute("BOPASS", bop);
 	}
 
-	public void removeSessionBop(HttpSession session) {
-		session.removeAttribute("BOPASS");
-	}
-	public BopHasAssessment getsessionBop(HttpServletRequest request) {
-		return (BopHasAssessment) request.getSession().getAttribute("BOPASS");
-	}
-
-	/*public void addSessionBopNumber(String bopNo, HttpSession session) {
+	public void addSessionBopNumber(String bopNo, HttpSession session) {
 		session.setAttribute("BOPNO", bopNo);
 	}
-
-	public void removeSessionBopNumber(HttpSession session) {
-		session.removeAttribute("BOPNO");
-	}*/
 
 	public AssessmentWrapper getSessionAssessment(HttpSession session) {
 		return (AssessmentWrapper) session.getAttribute("AssWrapper");
 	}
 
-	public void removeSessionAssessment(HttpSession session) {
-		session.removeAttribute("AssWrapper");
+	public void removeSessionUser(HttpSession session) {
+		session.removeAttribute("User");
 	}
 
 	public Integer getSessionUserId(HttpServletRequest request) {

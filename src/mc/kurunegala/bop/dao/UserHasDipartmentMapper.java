@@ -27,6 +27,4 @@ public interface UserHasDipartmentMapper {
     int updateByPrimaryKeySelective(UserHasDipartment record);
 
     int updateByPrimaryKey(UserHasDipartment record);
-    
-    List<UserHasDipartment> selectByUserId(int userId);
 }

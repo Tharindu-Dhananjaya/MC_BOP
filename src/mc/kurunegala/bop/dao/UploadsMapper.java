@@ -27,6 +27,4 @@ public interface UploadsMapper {
     int updateByPrimaryKeySelective(Uploads record);
 
     int updateByPrimaryKey(Uploads record);
-
-	List<Uploads> selectByBopId(Integer bopIdbop);
 }

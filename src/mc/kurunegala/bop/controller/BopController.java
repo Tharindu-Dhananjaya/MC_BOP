@@ -24,7 +24,6 @@ import mc.kurunegala.bop.model.Area;
 import mc.kurunegala.bop.model.Assessment;
 import mc.kurunegala.bop.model.AssessmentSearcher;
 import mc.kurunegala.bop.model.AssessmentWrapper;
-import mc.kurunegala.bop.model.BOP;
 import mc.kurunegala.bop.model.BOPWithBLOBs;
 import mc.kurunegala.bop.model.BOPWrapper;
 import mc.kurunegala.bop.model.BopHasAssessment;
@@ -38,7 +37,6 @@ import mc.kurunegala.bop.service.ApplicationCategoryService;
 import mc.kurunegala.bop.service.AreaService;
 import mc.kurunegala.bop.service.AssessmentService;
 import mc.kurunegala.bop.service.BopHasAssessmentService;
-import mc.kurunegala.bop.service.BopService;
 import mc.kurunegala.bop.service.CustomerService;
 import mc.kurunegala.bop.service.NeedDocService;
 import mc.kurunegala.bop.service.StreetService;
@@ -66,8 +64,6 @@ public class BopController extends AbstractController {
 	UploadSearvice uploadService;
 	@Autowired
 	AreaService areaService;
-	@Autowired
-	BopService bopService;
 
 	private static String UPLOADED_FOLDER = "F:\\bopUploads\\";
 
@@ -79,23 +75,19 @@ public class BopController extends AbstractController {
 
 		// List<BopHasAssessment> bopHasAssessment =
 		// bopHasAssessmentService.viewAllByState(1);
-		List<Uploads> uploads = null;
 		List<NeedDoc> needDocs = needDocService.viewAll();
 
 		ModelAndView mv = new ModelAndView("bop/application");
 
 //		Assessment ass = new Assessment();
-		BopHasAssessment bopHasAss = getsessionBop(request);
 
 		BOPWrapper wrapper = new BOPWrapper();
-		if ((bopHasAss != null) && (bopNo != null && !bopNo.equals("") && !bopNo.equals("null"))) {
+		if (bopNo != null && !bopNo.equals("") && !bopNo.equals("null")) {
 			wrapper.getBop().setBopNo(bopNo);
-			uploads = uploadService.viewByBopId(bopHasAss.getBopIdbop());
 		} else {
 			wrapper.getBop().setBopNo(generateBOPNmber());
 		}
 
-		mv.addObject("uploads", uploads);
 		mv.addObject("assessment", new Assessment());
 		mv.addObject("uploadWrapper", new UploadWrapper());
 		mv.addObject("needDocs", needDocs);
@@ -250,10 +242,8 @@ public class BopController extends AbstractController {
 		bop.setCustomerIdcustomer(customer.getIdcustomer());
 		bopservice.add(bop);
 
-//		bop=bopservice.viewByBopNo(bop.getBopNo());
-
 		BopHasAssessment bopAss = new BopHasAssessment();
-		// bopAss.setIdbopHasAssessmentcol(generatePrimaryKey());
+		bopAss.setIdbopHasAssessmentcol(generatePrimaryKey());
 		bopAss.setBopIdbop(bop.getIdbop());
 		bopAss.setAssessmentIdassessment(bopWrapper.getAssessment().getIdassessment());
 		bopAss.setBopHasAssessmentStatus(1);
@@ -284,7 +274,8 @@ public class BopController extends AbstractController {
 			e.printStackTrace();
 		}
 
-		BopHasAssessment bopHasAss = getsessionBop(request);
+		addSessionBopNumber(uploadWrapper.getBopNo(), request.getSession());
+
 		NeedDoc doc = needDocService.viewById(uploadWrapper.getNeedDoc().getIdneeddoc());
 		Uploads upload = new Uploads();
 		upload.setIdapplication(1);
@@ -292,7 +283,6 @@ public class BopController extends AbstractController {
 		upload.setApplicationCatagoryIdapplicationCatagory(doc.getApplicationCatagoryIdapplicationCatagory());
 		upload.setUploadsPath(filePath);
 		upload.setDoccatIddoccat(doc.getDoccatIddoccat());
-		upload.setIdapplication(bopHasAss.getBopIdbop());
 		uploadService.add(upload);
 
 		System.out.println(uploadWrapper.getBopNo());
@@ -309,9 +299,8 @@ public class BopController extends AbstractController {
 		List<NeedDoc> needDocs = needDocService.viewAll();
 
 		List<Assessment> assessments = assessmentService.viewAllActive(1);
-		List<BOPWithBLOBs> bops = bopservice.viewByState(0);
+
 		ModelAndView mv = new ModelAndView("bop/assessment-basic-view");
-		mv.addObject("bops", bops);
 		mv.addObject("assessments", assessments);
 		mv.addObject("uploadWrapper", new UploadWrapper());
 		mv.addObject("needDocs", needDocs);
@@ -322,50 +311,26 @@ public class BopController extends AbstractController {
 	@RequestMapping(value = "/bop-form", method = RequestMethod.POST)
 	public ModelAndView processBopForm(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute BOPWrapper bopWrapper) {
-		BopHasAssessment bopHasAss = getsessionBop(request);
-		BOPWithBLOBs bop = null;
-
-		if (bopHasAss != null)
-			bop = bopservice.get(bopHasAss.getBopIdbop());
-
-		if (bop != null) {
+		BOPWithBLOBs bop=null;
+		bop=bopservice.viewByBopNo(bopWrapper.getBop().getBopNo());
+		if(bop!=null) {
 			bop.setBopApplayDate(new Date());
 			bop.setBopIsMarkonground(bopWrapper.getLandMarkComleted());
 			bop.setBopDiscription(bopWrapper.getLandType());
 			bop.setBopCompleteStatus(0);
 			bopservice.update(bop);
-
-			String data[] = bopWrapper.getPerch().split(",");
-			for (String s : data) {
-				Area area = new Area();
+			
+			String data[]=bopWrapper.getPerch().split(",");
+			for(String s:data) {
+				Area area=new Area();
 				area.setBopIdbop(bop.getIdbop());
 				area.setAreaPerchers(Double.parseDouble(s));
 				areaService.add(area);
 			}
 		}
-		removeSessionAssessmentWrapper(request.getSession());
-		// removeSessionBopNumber(request.getSession());
-		removeSessionBop(request.getSession());
-
+		
 		ModelAndView mv = new ModelAndView("bop/list");
 		// mv.addObject("user", new UserAccount());
-		return mv;
-	}
-
-	@RequestMapping(value = "/bop-list", method = RequestMethod.GET)
-	public ModelAndView showBopList(HttpServletRequest request, HttpServletResponse response) {
-
-		List<BOPWithBLOBs> bops = bopservice.viewByState(0);
-		ModelAndView mv = new ModelAndView("bop/list");
-		mv.addObject("bops", bops);
-		return mv;
-	}
-	@RequestMapping(value = "/bop-view", method = RequestMethod.GET)
-	public ModelAndView showBopView(HttpServletRequest request, HttpServletResponse response,@RequestParam("tempId")String bopId) {
-
-		BOPWithBLOBs bop = bopservice.viewByBopId(Integer.parseInt(bopId));
-		ModelAndView mv = new ModelAndView("bop/view");
-		mv.addObject("bop", bop);
 		return mv;
 	}
 
