@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mc.kurunegala.bop.dao.UserMapper">
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<resultMap id="BaseResultMap"
 		type="mc.kurunegala.bop.model.User">
 		<id column="idUser" jdbcType="INTEGER" property="iduser" />
@@ -382,6 +383,8 @@
 
 	</resultMap>
 =======
+=======
+>>>>>>> parent of 7c1699b... privilages to be continue
   <resultMap id="BaseResultMap" type="mc.kurunegala.bop.model.User">
     <id column="idUser" jdbcType="INTEGER" property="iduser" />
     <result column="user_full_name" jdbcType="VARCHAR" property="userFullName" />
@@ -684,5 +687,8 @@
       user_password = #{userPassword,jdbcType=VARCHAR}
     where idUser = #{iduser,jdbcType=INTEGER}
   </update>
+<<<<<<< HEAD
+>>>>>>> parent of 7c1699b... privilages to be continue
+=======
 >>>>>>> parent of 7c1699b... privilages to be continue
 </mapper>
